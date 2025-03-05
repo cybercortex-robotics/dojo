@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>qtMainWindow</class>
+ <widget class="QMainWindow" name="qtMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1183</width>
+    <height>813</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>RovisAI Viewer</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="QStackedWidget" name="qtMainStackedWidget">
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="page_3"/>
+       <widget class="QWidget" name="page_4"/>
+      </widget>
+      <widget class="QTextEdit" name="logsScrollArea">
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAbout_ROVIS">
+   <property name="text">
+    <string>About ROVIS</string>
+   </property>
+  </action>
+  <action name="actionCamera_Calibration">
+   <property name="text">
+    <string>Camera Calibration</string>
+   </property>
+  </action>
+  <action name="actionCamera_Link">
+   <property name="text">
+    <string>Connect to ROVIS Vision Core</string>
+   </property>
+  </action>
+  <action name="actionOptions">
+   <property name="text">
+    <string>Options</string>
+   </property>
+  </action>
+  <action name="actionCamera_Calibration_2">
+   <property name="text">
+    <string>Camera Calibration</string>
+   </property>
+  </action>
+  <action name="actionFilter">
+   <property name="text">
+    <string>Filter</string>
+   </property>
+  </action>
+  <action name="actionRobust_Boundary_Segmentation">
+   <property name="text">
+    <string>Robust Boundary Segmentation</string>
+   </property>
+  </action>
+  <action name="actionRobust_Region_Segmentation">
+   <property name="text">
+    <string>Robust Region Segmentation</string>
+   </property>
+  </action>
+  <action name="actionRegion_Features">
+   <property name="text">
+    <string>Region Features</string>
+   </property>
+  </action>
+  <action name="actionEdge_Features">
+   <property name="text">
+    <string>Edge Features</string>
+   </property>
+  </action>
+  <action name="actionGradient_Features_Corners">
+   <property name="text">
+    <string>Gradient Features (Corners)</string>
+   </property>
+  </action>
+  <action name="actionMinimum_Distance_Classifier">
+   <property name="text">
+    <string>Minimum Distance Classifier</string>
+   </property>
+  </action>
+  <action name="actionTriangulation">
+   <property name="text">
+    <string>Triangulation</string>
+   </property>
+  </action>
+  <action name="actionDisparity_Map">
+   <property name="text">
+    <string>Disparity Map</string>
+   </property>
+  </action>
+  <action name="actionView_3D">
+   <property name="text">
+    <string>View 3D</string>
+   </property>
+  </action>
+  <action name="actionRendering_Options">
+   <property name="text">
+    <string>Rendering Options</string>
+   </property>
+  </action>
+  <action name="actionMulti_view_Reconstruction">
+   <property name="text">
+    <string>Multi-view Reconstruction</string>
+   </property>
+  </action>
+  <action name="actionActive_Tracking">
+   <property name="text">
+    <string>Active Tracking</string>
+   </property>
+  </action>
+  <action name="actionBasics">
+   <property name="text">
+    <string>Basics</string>
+   </property>
+  </action>
+  <action name="actionSegmentation_Fusion">
+   <property name="text">
+    <string>Segmentation Fusion</string>
+   </property>
+  </action>
+  <action name="actionScene_Features">
+   <property name="text">
+    <string>Scene Features</string>
+   </property>
+  </action>
+  <action name="actionObjectReconstruction">
+   <property name="text">
+    <string>ObjectReconstruction</string>
+   </property>
+  </action>
+  <action name="actionDisparity_Segmentation">
+   <property name="text">
+    <string>Disparity Segmentation</string>
+   </property>
+  </action>
+  <action name="actionRecordings">
+   <property name="text">
+    <string>Recordings</string>
+   </property>
+  </action>
+  <action name="actionView_Blockchain">
+   <property name="text">
+    <string>View Blockchain</string>
+   </property>
+  </action>
+  <action name="actionView_2D">
+   <property name="text">
+    <string>View 2D</string>
+   </property>
+  </action>
+  <action name="actionConvert_to_TFRecord">
+   <property name="text">
+    <string>Convert to TFRecord</string>
+   </property>
+  </action>
+  <action name="actionVehicle_mission_planner">
+   <property name="text">
+    <string>Vehicle mission planner</string>
+   </property>
+  </action>
+  <action name="actionAdd_lane_detection_datastream">
+   <property name="text">
+    <string>Add lane detection datastream</string>
+   </property>
+  </action>
+  <action name="actionAdd_semantic_segmentation_datastream">
+   <property name="text">
+    <string>Add semantic segmentation datastream</string>
+   </property>
+  </action>
+  <action name="actionAdd_3D_datastream">
+   <property name="text">
+    <string>Add 3D datastream</string>
+   </property>
+  </action>
+  <action name="actionLoad_DB">
+   <property name="text">
+    <string>Load DB</string>
+   </property>
+  </action>
+  <action name="actionAdd_2D_datastream">
+   <property name="text">
+    <string>Add 2D datastream</string>
+   </property>
+  </action>
+  <action name="action_menu_help">
+   <property name="text">
+    <string>Menu</string>
+   </property>
+  </action>
+  <action name="action_lane_help">
+   <property name="text">
+    <string>Lane anotation</string>
+   </property>
+  </action>
+  <action name="action_semseg_help">
+   <property name="text">
+    <string>SemSeg anotation</string>
+   </property>
+  </action>
+  <action name="action_roi2d_help">
+   <property name="text">
+    <string>Roi2D anotation</string>
+   </property>
+  </action>
+  <action name="action_roi3d_help">
+   <property name="text">
+    <string>Roi3D anotation</string>
+   </property>
+  </action>
+  <action name="actionAdd_points_tracker_datastream">
+   <property name="text">
+    <string>Add points tracker datastream</string>
+   </property>
+  </action>
+  <action name="actionLoad_database">
+   <property name="text">
+    <string>Load DB</string>
+   </property>
+  </action>
+  <action name="actionCopy_database">
+   <property name="text">
+    <string>Copy DB</string>
+   </property>
+  </action>
+  <action name="actionCreate_database">
+   <property name="text">
+    <string>Create DB</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

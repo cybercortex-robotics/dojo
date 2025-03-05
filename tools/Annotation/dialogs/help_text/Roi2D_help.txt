@@ -1,0 +1,26 @@
+Create a new 2D datastream: 
+	Tools -> Add 2D datastream
+	Set a name and a new filter ID
+	Overlay filter ID must be an existing monocamera filter ID
+	
+Draw a new ROI:
+	Press `Insert` or `Draw ROI` button
+	Click and drag mouse to draw the ROI
+
+Modify a ROI:
+	Select the ROI
+	Select another class if needed
+	You can drag the shape with the mouse or move it with the arrows
+	Resize using the border points
+	
+Delete a ROI:
+	Select a ROI
+	Press `Delete` or `Delete ROI` button
+	
+Save changes:
+	Press `Save` button or `Ctrl+S`
+
+Copy  - Ctrl+C
+Cut   - Ctrl+X
+Paste - Ctrl+V
+Undo  - Ctrl+Z

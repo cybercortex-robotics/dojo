@@ -1,0 +1,17 @@
+// NuScenes Lidar Calibration Parameters
+
+Pose = 
+{
+	Rotation = 
+    {
+        x = 0.0;
+        y = 0.0;
+        z = -90.0;
+    }
+	Translation =
+    {
+        x = 0.985793;
+        y = 0.0;
+        z = 1.84019;
+    }
+}

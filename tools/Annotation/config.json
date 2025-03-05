@@ -1,0 +1,347 @@
+{
+    "version": 1.0,
+    "date": "23.06.2021",
+    "CyC_DataTypes": [
+        {
+            "name": "CyC_UNDEFINED",
+            "value": -1
+        },
+        {
+            "name": "CyC_RAW_DATA_STREAM",
+            "value": 0
+        },
+        {
+            "name": "CyC_VECTOR_INT",
+            "value": 1
+        },
+        {
+            "name": "CyC_VECTOR_FLOAT",
+            "value": 2
+        },
+        {
+            "name": "CyC_VECTOR_DOUBLE",
+            "value": 3
+        },
+        {
+            "name": "CyC_IMAGE",
+            "value": 4
+        },
+        {
+            "name": "CyC_RADAR",
+            "value": 5
+        },
+        {
+            "name": "CyC_ULTRASONICS",
+            "value": 6
+        },
+        {
+            "name": "CyC_IMU",
+            "value": 7
+        },
+        {
+            "name": "CyC_GPS",
+            "value": 8
+        },
+        {
+            "name": "CyC_POINTS",
+            "value": 9
+        },
+        {
+            "name": "CyC_VOXELS",
+            "value": 10
+        },
+        {
+            "name": "CyC_POSES_6D",
+            "value": 11
+        },
+        {
+            "name": "CyC_2D_ROIS",
+            "value": 12
+        },
+        {
+            "name": "CyC_3D_BBOXES",
+            "value": 13
+        },
+        {
+            "name": "CyC_POINT_FEATURES",
+            "value": 14
+        },
+        {
+            "name": "CyC_OCTREE",
+            "value": 15
+        },
+        {
+            "name": "CyC_GRIDMAP",
+            "value": 16
+        },
+        {
+            "name": "CyC_LANES_MODEL",
+            "value": 17
+        },
+        {
+            "name": "CyC_DNN_OUTPUT",
+            "value": 18
+        },
+        {
+            "name": "CyC_REFERENCE_SETPOINTS",
+            "value": 19
+        },
+        {
+            "name": "CyC_STATE",
+            "value": 20
+        },
+        {
+            "name": "CyC_CONTROL_INPUT",
+            "value": 21
+        },
+        {
+            "name": "CyC_MEASUREMENT",
+            "value": 22
+        },
+        {
+            "name": "CyC_SLAM",
+            "value": 23
+        },
+        {
+            "name": "CyC_ESTIMATED_TRAJECTORY",
+            "value": 24
+        },
+        {
+            "name": "CyC_ROAD_ROIS",
+            "value": 100
+        }
+    ],
+    "CyC_FilterTypes": [
+        {
+            "name": "CyC_UNDEFINED_FILTER_TYPE",
+            "value": -1
+        },
+        {
+            "name": "CyC_IMAGE_READER_FILTER_TYPE",
+            "value": 0
+        },
+        {
+            "name": "CyC_MONO_CAMERA_FILTER_TYPE",
+            "value": 1
+        },
+        {
+            "name": "CyC_RGBDCAMERA_FILTER_TYPE",
+            "value": 2
+        },
+        {
+            "name": "CyC_BUMBLEBEE_CAMERA_FILTER_TYPE",
+            "value": 3
+        },
+        {
+            "name": "CyC_GPS_FILTER_TYPE",
+            "value": 4
+        },
+        {
+            "name": "CyC_IMU_FILTER_TYPE",
+            "value": 5
+        },
+        {
+            "name": "CyC_RADAR_FILTER_TYPE",
+            "value": 6
+        },
+        {
+            "name": "CyC_LIDAR_FILTER_TYPE",
+            "value": 7
+        },
+        {
+            "name": "CyC_ULTRASONICS_FILTER_TYPE",
+            "value": 8
+        },
+        {
+            "name": "CyC_TARAXL_FILTER_TYPE",
+            "value": 9
+        },
+        {
+            "name": "CyC_GRASSHOPPER_FILTER_TYPE",
+            "value": 10
+        },
+        {
+            "name": "CyC_QUADCAM_FILTER_TYPE",
+            "value": 11
+        },
+        {
+            "name": "CyC_ROTARY_ENCODER_FILTER_TYPE",
+            "value": 36
+        },
+        {
+            "name": "CyC_DNN_ROAD_DRIVING_FILTER_TYPE",
+            "value": 12
+        },
+        {
+            "name": "CyC_DNN_DETECTRON2_FILTER_TYPE",
+            "value": 43
+        },
+        {
+            "name": "CyC_DNN_ONNX_FILTER_TYPE",
+            "value": 48
+        },
+        {
+            "name": "CyC_ARUCO_LOCALIZATION_FILTER_TYPE",
+            "value": 14
+        },
+        {
+            "name": "CyC_VISUAL_SLAM_FILTER_TYPE",
+            "value": 15
+        },
+        {
+            "name": "CyC_SVO_TRACKER_DATA_FILTER_TYPE",
+            "value": 16
+        },
+        {
+            "name": "CyC_BINARY_SEGMENTATION_FILTER_TYPE",
+            "value": 17
+        },
+        {
+            "name": "CyC_ARUCO_DETECTION_FILTER_TYPE",
+            "value": 20
+        },
+        {
+            "name": "CyC_POINTS_TRACKER_FILTER_TYPE",
+            "value": 35
+        },
+        {
+            "name": "CyC_OBJECT_DETECTOR_2D_FILTER_TYPE",
+            "value": 18
+        },
+        {
+            "name": "CyC_OBJECT_DETECTOR_3D_FILTER_TYPE",
+            "value": 37
+        },
+        {
+            "name": "CyC_OBJECT_TRACKER_FILTER_TYPE",
+            "value": 19
+        },
+        {
+            "name": "CyC_LANE_DETECTION_FILTER_TYPE",
+            "value": 23
+        },
+        {
+            "name": "CyC_SEMANTIC_SEGMENTATION_FILTER_TYPE",
+            "value": 24
+        },
+        {
+            "name": "CyC_SENSOR_FUSION_MODEL_FILTER_TYPE",
+            "value": 22
+        },
+        {
+            "name": "CyC_MAP_FILTER_TYPE",
+            "value": 47
+        },
+        {
+            "name": "CyC_VEHICLE_MISSION_PLANNER_FILTER_TYPE",
+            "value": 25
+        },
+        {
+            "name": "CyC_VEHICLE_LOCAL_PLANNER_FILTER_TYPE",
+            "value": 26
+        },
+        {
+            "name": "CyC_VEHICLE_UNSTUCK_FILTER_TYPE",
+            "value": 38
+        },
+        {
+            "name": "CyC_DRONE_WAYPOINTS_PLANNER_FILTER_TYPE",
+            "value": 41
+        },
+        {
+            "name": "CyC_VEHICLE_SIMULATION_FILTER_TYPE",
+            "value": 29
+        },
+        {
+            "name": "CyC_VEHICLE_CONTROL_FILTER_TYPE",
+            "value": 27
+        },
+        {
+            "name": "CyC_VEHICLE_CONTROL_DIFF_FILTER_TYPE",
+            "value": 44
+        },
+        {
+            "name": "CyC_VEHICLE_STATE_ESTIMATION_FILTER_TYPE",
+            "value": 13
+        },
+        {
+            "name": "CyC_DRONE_SIMULATION_FILTER_TYPE",
+            "value": 39
+        },
+        {
+            "name": "CyC_DRONE_CONTROL_FILTER_TYPE",
+            "value": 28
+        },
+        {
+            "name": "CyC_DRONE_STATE_ESTIMATION_FILTER_TYPE",
+            "value": 40
+        },
+        {
+            "name": "CyC_ARM_SIMULATION_FILTER_TYPE",
+            "value": 50
+        },
+        {
+            "name": "CyC_ARM_CONTROL_FILTER_TYPE",
+            "value": 51
+        },
+        {
+            "name": "CyC_ARM_STATE_ESTIMATION_FILTER_TYPE",
+            "value": 52
+        },
+        {
+            "name": "CyC_INERTIAL_ODOMETRY_FILTER_TYPE",
+            "value": 53
+        },
+        {
+            "name": "CyC_TERMINAL_VEHICLE_FILTER_TYPE",
+            "value": 58
+        },
+        {
+            "name": "CyC_COMPASS_FILTER_TYPE",
+            "value": 60
+        },
+        {
+            "name": "CyC_VEHICLE_ACTUATOR_FILTER_TYPE",
+            "value": 30
+        },
+        {
+            "name": "CyC_DRONE_ACTUATOR_FILTER_TYPE",
+            "value": 42
+        },
+        {
+            "name": "CyC_ARM_ACTUATOR_FILTER_TYPE",
+            "value": 49
+        },
+        {
+            "name": "CyC_VIZ_SENSING_FILTER_TYPE",
+            "value": 45
+        },
+        {
+            "name": "CyC_VIZ_VEHICLE_FILTER_TYPE",
+            "value": 46
+        },
+        {
+            "name": "CyC_ROS_IMAGE_FILTER_TYPE",
+            "value": 31
+        },
+        {
+            "name": "CyC_ROS_SYNC_IMAGES_FILTER_TYPE",
+            "value": 32
+        },
+        {
+            "name": "CyC_OBJECT_ESTIMATION_FILTER_TYPE",
+            "value": 33
+        },
+        {
+            "name": "CyC_ULTRASONIC_PREDICTION_FILTER_TYPE",
+            "value": 34
+        },
+        {
+            "name": "CyC_OBJECT_DETECTOR_ROAD_FILTER_TYPE",
+            "value": 101
+        }
+    ],
+    "HistoryDatabases": [
+        "C:/dev/src/CyberCortex.AI/dojo/data/fake_dataset"
+    ]
+}

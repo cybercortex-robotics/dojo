@@ -1,0 +1,21 @@
+numpy
+opencv-python
+libconf
+absl-py
+tensorboard
+torchsummary
+pandas
+easydict
+scipy
+scikit-learn
+pyqtgraph
+PyQt5
+PyQtWebEngine
+matplotlib
+PyOpenGL
+IPython
+pyquaternion
+#pip3 install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu12.1
+torchview
+onnxruntime
+open3d

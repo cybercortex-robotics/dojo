@@ -1,0 +1,13 @@
+// NuScenes Camera Calibration Extrinsic Parameters
+
+// RGB camera parameters	
+LeftSensor =
+{	
+	x		= 1.70079;
+	y		= 0.01594563;
+	z		= 1.51095763913;
+	roll	= 2.3601717;
+	pitch	= 1.5627953;
+	yaw	    = 2.3530375;
+	w 		= 0.0;
+}

@@ -1,0 +1,21 @@
+Create a new lanes datastream: 
+	Tools -> Add lane detection datastream
+	Set a name and a new filter ID
+	Overlay filter ID must be an existing monocamera filter ID
+	
+Draw a new lane:
+	Press `Insert` or `Draw Lane` button
+	Change hights using mouse wheel
+	Add points with left-click
+	Press `Insert` or `Stop Drawing Lane` button
+
+Modify a lane:
+	Select the point
+	Add or replace points
+	
+Delete a lane:
+	Select a point
+	Press `Delete` or `Delete Lane` button
+	
+Save changes:
+	Press `Save` button or `Ctrl+S`

@@ -1,0 +1,37 @@
+// Carla Front calib
+
+image_width = 800;
+image_height = 600;
+
+Pose =
+{
+   Rotation = 
+   {
+      x = 0.0;
+      y = 90.0;
+      z = -90.0;
+   }
+   Translation = 
+   {
+      x = 1.7999999523162842;
+      y = 0.0;
+      z = 1.2000000476837158;
+   }
+}
+LeftSensor =
+{
+   channels = 3;
+   focal_length_x = 400.00000000000006;
+   focal_length_y = 400.00000000000006;
+   optical_center_x = 400.0;
+   optical_center_y = 300.0;
+   pixel_size_x = 4.5000001591688488e-006;
+   pixel_size_y = 4.5000001591688488e-006;
+   dist_coeff_0 = 0.0;
+   dist_coeff_1 = 0.0;
+   dist_coeff_2 = 0.0;
+   dist_coeff_3 = 0.0;
+   dist_coeff_4 = 0.0;
+}
+
+baseline = 0.0;

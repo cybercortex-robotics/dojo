@@ -1,0 +1,44 @@
+// NuScenes Calibration Parameters for the Front camera
+
+image_width = 1600;
+image_height = 900;
+
+Pose = 
+{
+	Rotation = 
+    {
+        x = 90.939
+        y = 33.599
+        z = 179.999
+    }
+	Translation =
+    {
+        x = 1.5508477543;
+        y = -0.493404796419;
+        z = 1.49574800619;
+    }
+}
+
+LeftSensor = 
+{
+	channels            = 3;
+	focal_length_x      = 1266.417203046554;
+	focal_length_y      = 1266.417203046554;
+	optical_center_x    = 816.2670197447984;
+	optical_center_y    = 491.50706579294757;
+	pixel_size_x        = 4.5000001591688488e-006;
+	pixel_size_y        = 4.5000001591688488e-006;
+	dist_coeff_0        = 0;
+	dist_coeff_1        = 0;
+	dist_coeff_2        = 0;
+	dist_coeff_3        = 0;
+	dist_coeff_4        = 0;
+}
+
+Lane_annotation =
+{
+	default_lines_height = 0.55;
+	default_lines_number = 30;
+}
+
+baseline = 0.0;

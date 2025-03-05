@@ -1,0 +1,42 @@
+// Copyright (c) 2024 CyberCortex Robotics SRL. All rights reserved
+// Author: Sorin Mihai Grigorescu
+
+// Intel Realsense IMU calibration
+
+Pose = 
+{
+	Rotation = 
+    {
+        x = -90.0;
+        y = 0.0;
+        z = -90.0;
+    }
+	Translation =
+    {
+        x = 0.0;
+        y = 0.0;
+        z = 0.0;
+    }
+}
+
+BiasAccel = 
+{
+    x = 0.0; // -0.37; // 1.5808847057433888e-02;
+    y = 0.0; // 0.11; // 1.0305393099194322e-02;
+    z = 0.0; // -0.028; // 1.3381054679559598e-02;
+}
+
+BiasGyro = 
+{
+    x = 0.0; // 1.1633614404081712e-03;
+    y = 0.0; // 2.3195526943588724e-03;
+    z = 0.0; // 1.5345904819231238e-03;
+}
+
+Noise = 
+{
+    acc_noise_stddev = 0.1;        // accelerometer measurement noise standard deviation.      #0.2   0.04
+    gyro_noise_stddev = 0.01;      // gyroscope measurement noise standard deviation.          #0.05  0.004
+    acc_noise_randwalk = 0.0002;   // accelerometer bias random walk noise standard deviation. #0.02
+    gyro_noise_randwalk = 0.00002; // gyroscope bias random walk noise standard deviation.     #0.00004
+}

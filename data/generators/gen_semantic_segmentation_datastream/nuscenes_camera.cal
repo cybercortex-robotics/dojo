@@ -1,0 +1,22 @@
+// NuScenes Camera Calibration Parameters
+
+image_width = 1600;
+image_height = 900;
+
+// RGB camera parameters
+LeftSensor =
+{
+	fx		= 1266.417203046554;
+	fy		= 1266.417203046554;
+	cx		= 816.2670197447984;
+	cy		= 491.50706579294757;
+	sx		= 0;
+	sy		= 0;
+	d0		= 0;
+	d1		= 0;
+	d2		= 0;
+	d3		= 0;
+	d4		= 0;
+}
+
+baseline = 0.0;
