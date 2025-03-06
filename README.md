@@ -29,3 +29,28 @@ Key Features
 - **Integration with CyberCortex.AI Inference**: Works in tandem with on-device AI to enhance robotic autonomy.
 
 CyberCortex.AI.dojo empowers developers, engineers, and AI researchers to create cutting-edge robotics solutions, bridging the gap between simulation and real-world deployment. 🚀
+
+## 2. License
+This repository and its contents are proprietary and subject to a commercial license. Unauthorized copying, distribution, or modification of any part of this codebase is strictly prohibited without explicit written permission from the owner.
+
+By accessing or using this repository, you agree to comply with the terms of the commercial license. For licensing inquiries, please contact [contact@cybercortex.ai](contact@cybercortex.ai).
+
+## 3. Citation
+```
+@article{https://doi.org/10.1002/rob.22426,
+  author = {Grigorescu, Sorin and Zaha, Mihai},
+  title = {CyberCortex.AI: An AI-based operating system for autonomous robotics and complex automation},
+  journal = {Journal of Field Robotics},
+  volume = {42},
+  number = {2},
+  pages = {474-492},
+  keywords = {artificial intelligence, autonomous navigation, autonomous robots, distributed computing, embedded artificial intelligence, embedded systems, heterogeneous robots, multi-robot systems, robot autonomy, robotics operating systems},
+  doi = {https://doi.org/10.1002/rob.22426},
+  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/rob.22426},
+  eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/rob.22426}
+  year = {2025}
+}
+```
+
+## 4. Contact
+If you have any questions, please raise an issue or contact us at [contact@cybercortex.ai](contact@cybercortex.ai).
