@@ -99,7 +99,7 @@ classes = [
 ]
 
 
-def mot2rovis(mot_cls):
+def mot2cyc(mot_cls):
     if mot_cls == 1 or mot_cls == 7:
         return 0  # pedestrian
     # if mot_cls == 3:
@@ -181,15 +181,15 @@ def convert_data(args):
                     if float(line_split[Idx.conf]) < args.confidence:
                         continue
 
-                    rovis_cls = mot2rovis(int(line_split[Idx.cls]))
-                    if rovis_cls == -1:
+                    cyc_cls = mot2cyc(int(line_split[Idx.cls]))
+                    if cyc_cls == -1:
                         continue
 
                     bbox_on_image = True
 
                     # Add data
                     roi_id.append(int(line_split[Idx.det_id]))
-                    cls.append(rovis_cls)
+                    cls.append(cyc_cls)
                     x.append(int(int(line_split[Idx.x]) * ratio_x))
                     y.append(int(int(line_split[Idx.y]) * ratio_y))
                     w.append(int(int(line_split[Idx.w]) * ratio_x))
@@ -284,8 +284,8 @@ def view_data(args):
                     if float(line_split[Idx.conf]) < args.confidence:
                         continue
 
-                    rovis_cls = mot2rovis(int(line_split[Idx.cls]))
-                    if rovis_cls == -1:
+                    cyc_cls = mot2cyc(int(line_split[Idx.cls]))
+                    if cyc_cls == -1:
                         continue
 
                     if not args.resize:
@@ -321,12 +321,12 @@ def view_data(args):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Convert MOT17Det dataset to Rovis Dataset format')
+    parser = argparse.ArgumentParser(description='Convert MOT17Det dataset to CyberCortex.AI Dataset format')
 
     parser.add_argument('--path', '-p', default=r'C:\dev\Databases\MOT17',
                         help='Path to the original dataset')
     parser.add_argument('--output_path', '-o', default=r'C:\dev\Databases\MOT17_converted',
-                        help='Location where the rovis DataBase will be saved')
+                        help='Location where the CyberCortex.AI DataBase will be saved')
 
     parser.add_argument('--videos', default=r'*',
                         help='Combinations of 02,04,05,09,10,11,13 or just all: *')

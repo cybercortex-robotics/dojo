@@ -35,7 +35,7 @@ CFG = global_config.cfg
 dataset_path = r'D:/NuScenes/'
 
 object_detection_datastreams = list(range(14, 26))
-nuScenes2Rovis_dict = {
+nuScenes2cyc_dict = {
     0: 0,
     1: 0,
     2: 0,
@@ -71,14 +71,14 @@ def is_int(s: str) -> bool:
 
 def change_class(path:str):
     """
-    Changes the NuScenes classes to Rovis classes
+    Changes the NuScenes classes to CyberCortex.AI classes
     :param path:
     :return:
     """
     framebased_data_descriptor_path = os.path.join(path, "framebased_data_descriptor.csv")
 
     framebased_data_descriptor = pd.read_csv(framebased_data_descriptor_path)
-    framebased_data_descriptor['cls'] = framebased_data_descriptor['cls'].apply(lambda x: nuScenes2Rovis_dict[x])
+    framebased_data_descriptor['cls'] = framebased_data_descriptor['cls'].apply(lambda x: nuScenes2cyc_dict[x])
     framebased_data_descriptor.to_csv(framebased_data_descriptor_path, index=False, sep=',')
 
 def main(_argv):

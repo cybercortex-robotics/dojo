@@ -90,7 +90,7 @@ property float r
 end_header
 '''
 
-rovis_types_header = CFG.CyC_INFERENCE.TYPES_FILE
+cyc_types_header = CFG.CyC_INFERENCE.TYPES_FILE
 
 
 # create directory
@@ -148,14 +148,14 @@ def write_lidar_ply(fn, verts):
 def generate_datablock_descriptor(list_sensors, drive):
     vision_core_id = 1
 
-    rovis_types_path = CFG.CyC_INFERENCE.TYPES_FILE
-    if not os.path.exists(rovis_types_path):
-        print('CyC_TYPES.h: {0} not found'.format(rovis_types_path))
+    cyc_types_path = CFG.CyC_INFERENCE.TYPES_FILE
+    if not os.path.exists(cyc_types_path):
+        print('CyC_TYPES.h: {0} not found'.format(cyc_types_path))
     CyC_FILTER_TYPE_ENUM_NAME = "CyC_FILTER_TYPE"
     CyC_DATA_TYPE_ENUM_NAME = "CyC_DATA_TYPE"
 
-    filter_type = types_CyC_TYPES.get_datatypes_as_dict(rovis_types_path, CyC_FILTER_TYPE_ENUM_NAME)
-    data_type = types_CyC_TYPES.get_datatypes_as_dict(rovis_types_path, CyC_DATA_TYPE_ENUM_NAME)
+    filter_type = types_CyC_TYPES.get_datatypes_as_dict(cyc_types_path, CyC_FILTER_TYPE_ENUM_NAME)
+    data_type = types_CyC_TYPES.get_datatypes_as_dict(cyc_types_path, CyC_DATA_TYPE_ENUM_NAME)
 
     SENSORS_FILTER = {
         'CAM_STEREO_COLOR': 'CyC_MONO_CAMERA_FILTER_TYPE',
@@ -618,7 +618,7 @@ def map_data_2_CyC_format(dataset, category, drive, sensor):
                  str(SENSORS['CAM_STEREO_COLOR'] + 1) + '/' + 'samples/right/')
 
     elif sensor is 'LIDAR':
-        # save Velodyne data in PLY format (such that ROVIS can use standard libraries to loade it)
+        # save Velodyne data in PLY format (such that CyberCortex.AI can use standard libraries to loade it)
         for idx, velo_file in enumerate(dataset.velo_files):
             write_lidar_ply(
                 path_to_destination_folder + '/' + date + '_drive_' + drive + '/datastream_1' + '_' +

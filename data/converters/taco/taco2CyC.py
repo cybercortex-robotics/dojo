@@ -18,11 +18,11 @@ from pycocotools.coco import COCO
 from data.CyC_db_interface import CyC_DataType, CyC_FilterType
 
 
-def add_blockchain_descriptor(path2rovis, core_id, filter_id_images, filter_id_sem_seg, filter_id_objdet):
-    if os.path.exists(os.path.join(path2rovis, "datablock_descriptor.csv")):
-        print("Rovis blockchain descriptor file already exists")
+def add_blockchain_descriptor(path2cyc, core_id, filter_id_images, filter_id_sem_seg, filter_id_objdet):
+    if os.path.exists(os.path.join(path2cyc, "datablock_descriptor.csv")):
+        print("CyberCortex.AI datablock descriptor file already exists")
         return
-    with open(os.path.join(path2rovis, "datablock_descriptor.csv"), "w") as blockchain_desc:
+    with open(os.path.join(path2cyc, "datablock_descriptor.csv"), "w") as blockchain_desc:
         blockchain_desc.write("vision_core_id,filter_id,name,type,output_data_type,input_sources\n")
         if filter_id_images != -1:
             blockchain_desc.write("{},{},{},{},{},{}\n".format(
@@ -53,11 +53,11 @@ def add_blockchain_descriptor(path2rovis, core_id, filter_id_images, filter_id_s
             ))
 
 
-def add_timestamp_sync_file(path2rovis, filter_id_images, filter_id_semseg, filter_id_objdet):
-    with open(os.path.join(path2rovis, "datastream_{}".format(filter_id_images), "data_descriptor.csv"), "r") as desc_img:
+def add_timestamp_sync_file(path2cyc, filter_id_images, filter_id_semseg, filter_id_objdet):
+    with open(os.path.join(path2cyc, "datastream_{}".format(filter_id_images), "data_descriptor.csv"), "r") as desc_img:
         lines_img = desc_img.readlines()
 
-    with open(os.path.join(path2rovis, "sampling_timestamps_sync.csv"), "w") as ts_sync:
+    with open(os.path.join(path2cyc, "sampling_timestamps_sync.csv"), "w") as ts_sync:
         ts_sync.write("timestamp_stop,datastream_{},datastream_{},datastream_{}\n".format(
             filter_id_images, filter_id_semseg, filter_id_objdet
         ))
@@ -72,12 +72,12 @@ def add_timestamp_sync_file(path2rovis, filter_id_images, filter_id_semseg, filt
                 continue
 
 
-def create_rovis_database(path2taco,
-                          path2rovis,
-                          filter_id_images=-1,
-                          filter_id_sem_seg=-1,
-                          filter_id_objdet=-1,
-                          resize=(-1, -1)):
+def create_cyc_database(path2taco,
+                        path2cyc,
+                        filter_id_images=-1,
+                        filter_id_sem_seg=-1,
+                        filter_id_objdet=-1,
+                        resize=(-1, -1)):
 
 
     sampling_time = 10
@@ -94,14 +94,14 @@ def create_rovis_database(path2taco,
         print("Mapillary dataset not found at {}".format(path2taco))
         return False
 
-    if os.path.exists(path2rovis):
-        print("Warning: Path {} already exists. Will not create folders...".format(path2rovis))
+    if os.path.exists(path2cyc):
+        print("Warning: Path {} already exists. Will not create folders...".format(path2cyc))
     else:
-        os.mkdir(path2rovis)
+        os.mkdir(path2cyc)
 
-    image_base_path = os.path.join(path2rovis, "datastream_{}".format(filter_id_images))
-    sem_seg_base_path = os.path.join(path2rovis, "datastream_{}".format(filter_id_sem_seg))
-    objdet_base_path = os.path.join(path2rovis, "datastream_{}".format(filter_id_objdet))
+    image_base_path = os.path.join(path2cyc, "datastream_{}".format(filter_id_images))
+    sem_seg_base_path = os.path.join(path2cyc, "datastream_{}".format(filter_id_sem_seg))
+    objdet_base_path = os.path.join(path2cyc, "datastream_{}".format(filter_id_objdet))
 
     if filter_id_images > 0:
         if os.path.exists(image_base_path):
@@ -311,32 +311,32 @@ def generate_conf(path2taco, object_classes_folder_path):
 if __name__ == '__main__':
 
     taco_data_path = r"D:\taco\data"
-    rovis_path = r"D:\taco\rovis_taco_resize"
+    cyc_path = r"D:\taco\taco_resize"
     resize = (640, 480)
     core_id = 1
     filter_id_images = 1
     filter_id_semseg = 2
     filter_id_objdet = 3
-    object_classes_folder_path = r"C:\dev\RovisVision\etc\env"
+    object_classes_folder_path = r"C:\dev\CyberCortex.AI\dojo\etc\env"
 
 
     # generate_conf(path2taco=taco_data_path, object_classes_path=object_classes_path)
 
 
-    create_rovis_database(path2taco=taco_data_path,
-                          path2rovis=rovis_path,
-                          filter_id_images=filter_id_images,
-                          filter_id_sem_seg=filter_id_semseg,
-                          filter_id_objdet=filter_id_objdet,
-                          resize=resize)
+    create_cyc_database(path2taco=taco_data_path,
+                        path2cyc=cyc_path,
+                        filter_id_images=filter_id_images,
+                        filter_id_sem_seg=filter_id_semseg,
+                        filter_id_objdet=filter_id_objdet,
+                        resize=resize)
 
-    add_blockchain_descriptor(path2rovis=rovis_path,
+    add_blockchain_descriptor(path2cyc=cyc_path,
                               core_id=core_id,
                               filter_id_images=filter_id_images,
                               filter_id_sem_seg=filter_id_semseg,
                               filter_id_objdet=filter_id_objdet)
 
-    add_timestamp_sync_file(path2rovis=rovis_path,
+    add_timestamp_sync_file(path2cyc=cyc_path,
                             filter_id_images=filter_id_images,
                             filter_id_semseg=filter_id_semseg,
                             filter_id_objdet=filter_id_objdet)

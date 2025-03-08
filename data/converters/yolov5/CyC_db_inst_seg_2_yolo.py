@@ -22,12 +22,12 @@ DEBUG = True
 object_classes = ObjectClasses(CFG.CyC_INFERENCE.OBJECT_CLASSES_PATH)
 
 
-def update_timestamp_sync(rovis_db_path, yolo_filter_id, sample_filter_id):
-    if not os.path.exists(os.path.join(rovis_db_path, "sampling_timestamps_sync.csv")):
-        print("[###] ERROR: Rovis sampling timestamps sync file does not exist")
+def update_timestamp_sync(cyc_db_path, yolo_filter_id, sample_filter_id):
+    if not os.path.exists(os.path.join(cyc_db_path, "sampling_timestamps_sync.csv")):
+        print("[###] ERROR: CyberCortex.AI sampling timestamps sync file does not exist")
         exit(1)
 
-    with open(os.path.join(rovis_db_path, "sampling_timestamps_sync.csv"), "r") as ts_sync_file:
+    with open(os.path.join(cyc_db_path, "sampling_timestamps_sync.csv"), "r") as ts_sync_file:
         lines = ts_sync_file.readlines()
 
     if "datastream_{}".format(yolo_filter_id) in lines[0]:
@@ -47,23 +47,23 @@ def update_timestamp_sync(rovis_db_path, yolo_filter_id, sample_filter_id):
         ts_stop = int(line[idx_samples])
         lines[idx] = lines[idx].strip() + ",{}".format(ts_stop)
 
-    with open(os.path.join(rovis_db_path, "sampling_timestamps_sync.csv"), "w") as ts_sync_file:
+    with open(os.path.join(cyc_db_path, "sampling_timestamps_sync.csv"), "w") as ts_sync_file:
         for line in lines:
             ts_sync_file.write(line.strip() + "\n")
 
 
-def update_blockchain_descriptor(rovis_db_path, yolo_filter_id, sample_filter_id):
-    if not os.path.exists(rovis_db_path):
-        print("[###] ERROR: Rovis Database path {} invalid".format(rovis_db_path))
+def update_blockchain_descriptor(cyc_db_path, yolo_filter_id, sample_filter_id):
+    if not os.path.exists(cyc_db_path):
+        print("[###] ERROR: CyberCortex.AI Database path {} invalid".format(cyc_db_path))
         exit(1)
 
-    if not os.path.exists(os.path.join(rovis_db_path, "datablock_descriptor.csv")):
+    if not os.path.exists(os.path.join(cyc_db_path, "datablock_descriptor.csv")):
         print("[###] ERROR: datablock_descriptor.csv file not found at path {}".format(
-            rovis_db_path
+            cyc_db_path
         ))
         exit(1)
 
-    with open(os.path.join(rovis_db_path, "datablock_descriptor.csv")) as blockchain_desc:
+    with open(os.path.join(cyc_db_path, "datablock_descriptor.csv")) as blockchain_desc:
         lines = blockchain_desc.readlines()
 
     sample_core_id = 1
@@ -86,41 +86,41 @@ def update_blockchain_descriptor(rovis_db_path, yolo_filter_id, sample_filter_id
         sample_filter_id
     ))
 
-    with open(os.path.join(rovis_db_path, "datablock_descriptor.csv"), "w") as blockchain_desc:
+    with open(os.path.join(cyc_db_path, "datablock_descriptor.csv"), "w") as blockchain_desc:
         for line in lines:
             blockchain_desc.write(line.strip() + "\n")
 
 
-def prepare_yolo_files(rovis_db_path, yolo_filter_id, sample_filter_id):
-    if not os.path.exists(rovis_db_path):
-        print("[###] ERROR: Rovis Database path {} invalid".format(rovis_db_path))
+def prepare_yolo_files(cyc_db_path, yolo_filter_id, sample_filter_id):
+    if not os.path.exists(cyc_db_path):
+        print("[###] ERROR: CyberCortex.AI Database path {} invalid".format(cyc_db_path))
         exit(1)
 
-    if not os.path.exists(os.path.join(rovis_db_path, "datastream_{}".format(sample_filter_id))):
+    if not os.path.exists(os.path.join(cyc_db_path, "datastream_{}".format(sample_filter_id))):
         print("[###] ERROR: Samples filter path {} does not exist".format(
-            os.path.join(rovis_db_path, "datastream_{}".format(sample_filter_id))
+            os.path.join(cyc_db_path, "datastream_{}".format(sample_filter_id))
         ))
         exit(1)
 
-    if not os.path.exists(os.path.join(rovis_db_path, "datastream_{}".format(sample_filter_id), "data_descriptor.csv")):
+    if not os.path.exists(os.path.join(cyc_db_path, "datastream_{}".format(sample_filter_id), "data_descriptor.csv")):
         print("[###] ERROR: Descriptor csv from {} does not exist".format(
-            os.path.join(rovis_db_path, "datastream_{}".format(sample_filter_id))
+            os.path.join(cyc_db_path, "datastream_{}".format(sample_filter_id))
         ))
         exit(1)
 
-    if os.path.exists(os.path.join(rovis_db_path, "datastream_{}".format(yolo_filter_id))):
+    if os.path.exists(os.path.join(cyc_db_path, "datastream_{}".format(yolo_filter_id))):
         print("[###] Warning: Folder {} already exists. Deleting...".format(
-            os.path.join(rovis_db_path, "datastream_{}".format(yolo_filter_id))
+            os.path.join(cyc_db_path, "datastream_{}".format(yolo_filter_id))
         ))
-        shutil.rmtree(os.path.join(rovis_db_path, "datastream_{}".format(yolo_filter_id)), ignore_errors=True)
+        shutil.rmtree(os.path.join(cyc_db_path, "datastream_{}".format(yolo_filter_id)), ignore_errors=True)
 
-    os.mkdir(os.path.join(rovis_db_path, "datastream_{}".format(yolo_filter_id)))
+    os.mkdir(os.path.join(cyc_db_path, "datastream_{}".format(yolo_filter_id)))
 
-    with open(os.path.join(rovis_db_path, "datastream_{}".format(sample_filter_id), "data_descriptor.csv"), "r") as sample_f:
+    with open(os.path.join(cyc_db_path, "datastream_{}".format(sample_filter_id), "data_descriptor.csv"), "r") as sample_f:
         lines_samples = sample_f.readlines()
 
     frame_id = 0
-    with open(os.path.join(rovis_db_path, "datastream_{}".format(yolo_filter_id), "data_descriptor.csv"), "w") as desc_f:
+    with open(os.path.join(cyc_db_path, "datastream_{}".format(yolo_filter_id), "data_descriptor.csv"), "w") as desc_f:
         desc_f.write("timestamp_start,timestamp_stop,sampling_time,frame_id\n")
         for line in lines_samples:
             if "timestamp_start" in line:
@@ -134,16 +134,16 @@ def prepare_yolo_files(rovis_db_path, yolo_filter_id, sample_filter_id):
             frame_id += 1
 
 
-def generate(rovis_db, yolo_filter_id, object_classes_objects, object_classes_regions, map_objects_fcn=None):
+def generate(cyc_db, yolo_filter_id, object_classes_objects, object_classes_regions, map_objects_fcn=None):
     """
-    Parse the Rovis database and generate bounding boxes for yolo detector
+    Parse the CyberCortex.AI database and generate bounding boxes for yolo detector
     """
     samples_files = list()
     samples_metadata = list()
     labels_files = list()
     labels_semseg_files = list()
 
-    if len(rovis_db['keys_samples']) != len(rovis_db['keys_labels']):
+    if len(cyc_db['keys_samples']) != len(cyc_db['keys_labels']):
         print("[##] ERROR: keys_samples should be same length as keys_labels")
         exit(1)
 
@@ -155,7 +155,7 @@ def generate(rovis_db, yolo_filter_id, object_classes_objects, object_classes_re
         print("[##] ERROR: Please provide valid object_classes for regions")
         exit(1)
 
-    if len(rovis_db['keys_samples']) != 1:
+    if len(cyc_db['keys_samples']) != 1:
         print("[##] ERROR: generate function supports just one sample + label at once")
         exit(1)
 
@@ -169,7 +169,7 @@ def generate(rovis_db, yolo_filter_id, object_classes_objects, object_classes_re
 
     max_idx_objects = obj_cls_objects.get_class_max_index()
 
-    dataset = rovis_db
+    dataset = cyc_db
     print("[#] Reading dataset located at path {}".format(dataset['path']))
     if not os.path.exists(dataset['path']):
         print("[##] ERROR: Database folder {} does not exist. Skipping")
@@ -231,17 +231,17 @@ def generate(rovis_db, yolo_filter_id, object_classes_objects, object_classes_re
             frame_id += 1
 
     print("[##] Preparing yolo directory structure and descriptor file")
-    prepare_yolo_files(rovis_db_path=dataset['path'],
+    prepare_yolo_files(cyc_db_path=dataset['path'],
                        yolo_filter_id=yolo_filter_id,
                        sample_filter_id=dataset['keys_samples'][0])
 
     print("[##] Updating blockchain descriptor file")
-    update_blockchain_descriptor(rovis_db_path=dataset['path'],
+    update_blockchain_descriptor(cyc_db_path=dataset['path'],
                                  yolo_filter_id=yolo_filter_id,
                                  sample_filter_id=dataset['keys_samples'][0])
 
     print("[##] Updating timestamp sync file")
-    update_timestamp_sync(rovis_db_path=dataset['path'],
+    update_timestamp_sync(cyc_db_path=dataset['path'],
                           yolo_filter_id=yolo_filter_id,
                           sample_filter_id=dataset['keys_samples'][0])
 
@@ -355,18 +355,17 @@ def nuscenes_region_to_object(cls, region_object_classes_file, objects_object_cl
 
 
 if __name__ == "__main__":
-    rovis_database = {
-        'path': r"C:\data\RovisDatabases\Driving\dataset_driving",
+    cyc_database = {
+        'path': r"C:\data\Driving\dataset_driving",
         'keys_samples': [1],
         'keys_labels': [10]
     }
 
-    object_classes_reg = "C:/dev/src/RovisLab/RovisVision/etc/env/classes_NuScenes_regions.conf"
-    object_classes_objects = "C:/dev/src/RovisLab/RovisVision/etc/env/classes_NuScenes_objects.conf"
+    object_classes_reg = "C:/dev/src/CyberCortex.AI/dojo/etc/env/classes_NuScenes_regions.conf"
+    object_classes_objects = "C:/dev/src/CyberCortex.AI/dojo/etc/env/classes_NuScenes_objects.conf"
 
-    generate(rovis_db=rovis_database,
+    generate(cyc_db=cyc_database,
              yolo_filter_id=11,
              object_classes_objects=object_classes_objects,
              object_classes_regions=object_classes_reg,
              map_objects_fcn=nuscenes_region_to_object)
-
