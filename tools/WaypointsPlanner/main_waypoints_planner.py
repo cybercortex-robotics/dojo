@@ -83,10 +83,10 @@ class WaypointsPlannerMainWindow(QMainWindow):
         else:
             print("No waypoints filename was found!")
 
-        if os.path.exists(self.map_filename):
-            self.qtLandmarksViewer.loadMapFile()
-        else:
-            print("No map filename was found!")
+        #if os.path.exists(self.map_filename):
+        #    self.qtLandmarksViewer.loadMapFile()
+        #else:
+        #    print("No map filename was found!")
 
     # Events -----------------------------------------------------------------------------------------------------------
     def closeEvent(self, event):

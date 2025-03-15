@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>1173</width>
-     <height>21</height>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuTools">
@@ -91,12 +91,12 @@
   </action>
   <action name="qtLoadWaypointsAction">
    <property name="text">
-    <string>LoadWaypoints</string>
+    <string>Load Waypoints</string>
    </property>
   </action>
   <action name="qtLoadMapsAction">
    <property name="text">
-    <string>LoadMaps</string>
+    <string>Load Map</string>
    </property>
   </action>
  </widget>

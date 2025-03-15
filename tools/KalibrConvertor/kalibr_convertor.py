@@ -2,6 +2,7 @@ import csv
 import os
 import shutil
 import argparse
+import pandas as pd
 from data.types_CyC_TYPES import CyC_DataType
 
 
@@ -37,34 +38,55 @@ def process_camera_by_id(source_dir, target_dir, filter_id, camera_id):
 
     os.makedirs(images_dst_dir)
 
+    cam_data_descriptor = os.path.join(source_dir, "datastream_{}/data_descriptor.csv".format(filter_id))
+    cam_data_path = os.path.join(source_dir, "datastream_{}".format(filter_id))
+
+    # Count the number of rows
+    with open(cam_data_descriptor, "r") as fsrc:
+        df = pd.read_csv(fsrc, delimiter=',')
+        row_count = len(df)
+        print("Total rows: {}".format(row_count))
+
     print("Copying files... ")
-    files = os.listdir(images_src_dir)
-    next_percentage = 0.1
-    for i, image_name in enumerate(files):
-        filename, file_extension = os.path.splitext(image_name)
-        new_image_name = "{}000000{}".format(filename, file_extension)
+    with open(cam_data_descriptor, "r") as fsrc:
+        reader = csv.reader(fsrc, delimiter=',')
+        next(reader)
 
-        image_src_filename = os.path.join(images_src_dir, image_name)
-        image_dst_filename = os.path.join(images_dst_dir, new_image_name)
+        next_percentage = 0.1
+        i = 0
+        for row in reader:
+            ts = row[2]
+            filename = os.path.join(cam_data_path, row[3])
+            _, file_extension = os.path.splitext(filename)
 
-        shutil.copy(image_src_filename, image_dst_filename)
+            image_src_filename = os.path.join(images_src_dir, filename)
+            image_dst_filename = os.path.join(images_dst_dir, "{}000000{}".format(ts, file_extension))
 
-        percentage = i / len(files)
-        if percentage > next_percentage:
-            print("{:.0f}%...".format(next_percentage * 100))
-            next_percentage += 0.1
+            shutil.copy(image_src_filename, image_dst_filename)
 
+            percentage = i / row_count
+            if percentage > next_percentage:
+                print("{:.0f}%...".format(next_percentage * 100))
+                next_percentage += 0.1
+            i += 1
     print("Done!")
 
 
 def process_imu_by_id(source_dir, target_dir, filter_id, imu_id):
-    print("Processing filter {} to camera {}...".format(filter_id, imu_id))
+    print("Processing filter {} to imu {}...".format(filter_id, imu_id))
 
-    imu_src_filename = os.path.join(source_dir, "datastream_{}/data_descriptor.csv".format(filter_id))
+    imu_data_descriptor = os.path.join(source_dir, "datastream_{}/data_descriptor.csv".format(filter_id))
     imu_dst_filename = os.path.join(target_dir, "imu{}.csv".format(imu_id))
+    imu_data_path = os.path.join(source_dir, "datastream_{}".format(filter_id))
+
+    # Count the number of rows
+    with open(imu_data_descriptor, "r") as fsrc:
+        df = pd.read_csv(fsrc, delimiter=',')
+        row_count = len(df)
+        print("Total rows: {}".format(row_count))
 
     print("Writing csv at {}...".format(imu_dst_filename))
-    with open(imu_src_filename, "r") as fsrc:
+    with open(imu_data_descriptor, "r") as fsrc:
         with open(imu_dst_filename, "w+", newline='') as fdst:
             reader = csv.reader(fsrc, delimiter=',')
             writer = csv.writer(fdst, delimiter=',')
@@ -72,11 +94,22 @@ def process_imu_by_id(source_dir, target_dir, filter_id, imu_id):
             next(reader)
             writer.writerow(["timestamp", "omega_x", "omega_y", "omega_z", "alpha_x", "alpha_y", "alpha_z"])
 
+            next_percentage = 0.1
+            i = 0
             for row in reader:
-                # timestamp_start,timestamp_stop,sampling_time,acc_x,acc_y,acc_z,gyro_x,gyro_y,gyro_z,yaw,pitch,roll
-                timestamp = "{}000000".format(row[1])
-                writer.writerow([timestamp] + row[3:9])
+                imu_data_file = os.path.join(imu_data_path, row[2])
+                with open(imu_data_file, "r") as fimu:
+                    imu_reader = csv.reader(fimu, delimiter=',')
+                    next(imu_reader)
+                    for imu_row in imu_reader:
+                        timestamp = "{}000000".format(imu_row[0])
+                        writer.writerow([timestamp] + imu_row[4:7] + imu_row[1:4])
 
+                percentage = i / row_count
+                if percentage > next_percentage:
+                    print("{:.0f}%...".format(next_percentage * 100))
+                    next_percentage += 0.1
+                i += 1
     print("Done")
 
 
@@ -86,15 +119,15 @@ def main():
         description="Converts CyberCortex.AI datastreams to intermediary format for Kalibr's bagcreator"
     )
 
-    parser.add_argument("-src", required=True)
-    parser.add_argument("-dst", required=True)
+    parser.add_argument("-src", default="C:/data/kalibr/rs_calib_01")
+    parser.add_argument("-dst", default="C:/data/kalibr/rs_calib_01_kalibr")
 
     args = parser.parse_args()
     cams, imus = collect_relevant_filters(args.src)
     for i, cam in enumerate(cams):
         process_camera_by_id(args.src, args.dst, cam, i)
     for i, imu in enumerate(imus):
-        process_imu_by_id(args.src, args.dst, imu, i)
+       process_imu_by_id(args.src, args.dst, imu, i)
 
 
 if __name__ == "__main__":

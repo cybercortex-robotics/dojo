@@ -35,7 +35,7 @@ except:
 # ===================================
 # Set CyberCortex.AI parameters
 __C.CyC_INFERENCE = edict()
-__C.CyC_INFERENCE.TYPES_FILE = __C.BASE.PATH + r'/inference/include/core/CyC_TYPES.h'
+__C.CyC_INFERENCE.TYPES_FILE = __C.BASE.PATH + r'/core/src/cyc_core/src/CyC_TYPES.h'
 __C.CyC_INFERENCE.PIPELINE_FILE = __C.BASE.PATH + r'/inference/etc/pipelines/control/nuscenes_pipeline.conf'
 __C.CyC_INFERENCE.OBJECT_CLASSES_PATH = __C.BASE.PATH + r'/dojo/etc/env/object_classes_carla.conf'
 
