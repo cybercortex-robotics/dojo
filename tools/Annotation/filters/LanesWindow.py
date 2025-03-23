@@ -413,7 +413,7 @@ class LanesWindow(FilterWindowInterface):
 
         lane_pts_reproj_3d_veh = list()
         for idx in range(len(lane_pts_reproj_3d_cam)):
-            pt_3d_veh = np.matmul(self.cam.M_cam2veh, lane_pts_reproj_3d_cam[idx])
+            pt_3d_veh = np.matmul(self.cam.T_cam2body, lane_pts_reproj_3d_cam[idx])
             lane_pts_reproj_3d_veh.append(pt_3d_veh)
 
         lane_pts_reproj_3d_veh = np.array(lane_pts_reproj_3d_veh)
@@ -445,7 +445,7 @@ class LanesWindow(FilterWindowInterface):
         # Project synthetic lane to image
         lane_pts_synth_3d_cam = []
         for i in range(len(lane_pts_synth_3d_veh)):
-            pt_3d_cam = np.matmul(self.cam.M_veh2cam, lane_pts_synth_3d_veh[i])
+            pt_3d_cam = np.matmul(self.cam.T_body2cam, lane_pts_synth_3d_veh[i])
             lane_pts_synth_3d_cam.append(pt_3d_cam)
         lane_pts_synth_3d_cam = np.array(lane_pts_synth_3d_cam)
 

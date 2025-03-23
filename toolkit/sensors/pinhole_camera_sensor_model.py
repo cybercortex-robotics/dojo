@@ -54,6 +54,8 @@ class PinholeCameraSensorModel(object):
         self.camera_type = None
         self.rotation = np.zeros((3))
         self.translation = np.zeros((3))
+        self.T_cam2body = None
+        self.T_body2cam = None
         self.width_ = -1
         self.height_ = -1
         self.channels_ = -1
@@ -84,13 +86,13 @@ class PinholeCameraSensorModel(object):
 
     def generate_matrix(self):
         # Transform points from vehicle coordinates to camera coordinates
-        self.M_cam2veh = frames.transform_mat_XYZ(self.translation[0], self.translation[1], self.translation[2],
-                                                  np.deg2rad(self.rotation[0]), np.deg2rad(self.rotation[1]),
-                                                  np.deg2rad(self.rotation[2]))
-        self.M_cam2veh = np.vstack([self.M_cam2veh, [0., 0., 0., 1.]])
+        self.T_cam2body = frames.transform_mat_XYZ(self.translation[0], self.translation[1], self.translation[2],
+                                                   np.deg2rad(self.rotation[0]), np.deg2rad(self.rotation[1]),
+                                                   np.deg2rad(self.rotation[2]))
+        self.T_cam2body = np.vstack([self.T_cam2body, [0., 0., 0., 1.]])
 
         # Calculate camera to vehicle transformation matrix (inverse of M_veh2cam)
-        self.M_veh2cam = np.linalg.inv(self.M_cam2veh)
+        self.T_body2cam = np.linalg.inv(self.T_cam2body)
 
     def parse_cyc_vision_pipeline_file(self, cyc_vision_pipeline_file):
         """Open conf file, read and parse contents."""

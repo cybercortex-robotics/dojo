@@ -1,3 +1,15 @@
+"""
+Copyright (c) 2025 CyberCortex Robotics SRL. All rights reserved
+CyberCortex.AI.dojo: neural network design, training and annotation
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Proprietary license
+which accompanies this distribution.
+
+For any commercial applications, details and software licensing,
+please contact Prof. Sorin Grigorescu (contact@cybercortex.ai)
+"""
+
 import csv
 import os
 import shutil
@@ -119,8 +131,8 @@ def main():
         description="Converts CyberCortex.AI datastreams to intermediary format for Kalibr's bagcreator"
     )
 
-    parser.add_argument("-src", default="C:/data/kalibr/rs_calib_01")
-    parser.add_argument("-dst", default="C:/data/kalibr/rs_calib_01_kalibr")
+    parser.add_argument("-src", default="C:/data/kalibr/rs_d455_01")
+    parser.add_argument("-dst", default="C:/data/kalibr/rs_d455_01_kalibr")
 
     args = parser.parse_args()
     cams, imus = collect_relevant_filters(args.src)
