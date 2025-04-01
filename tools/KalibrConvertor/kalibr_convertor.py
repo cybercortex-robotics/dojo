@@ -131,8 +131,8 @@ def main():
         description="Converts CyberCortex.AI datastreams to intermediary format for Kalibr's bagcreator"
     )
 
-    parser.add_argument("-src", default="C:/data/kalibr/rs_d455_01")
-    parser.add_argument("-dst", default="C:/data/kalibr/rs_d455_01_kalibr")
+    parser.add_argument("-src", default="C:/data/kalibr/rs_d435_02")
+    parser.add_argument("-dst", default="C:/data/kalibr/rs_d435_02_kalibr")
 
     args = parser.parse_args()
     cams, imus = collect_relevant_filters(args.src)

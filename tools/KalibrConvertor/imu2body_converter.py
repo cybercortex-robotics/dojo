@@ -25,8 +25,8 @@ def main():
                     "this script will convert the imu coordinates to body frame."
     )
 
-    parser.add_argument("-cam", default="C:/data/kalibr/rs_d455_01_result/rs_d455-camchain-imucam.yaml")
-    parser.add_argument("-model", default="C:/dev/src/CyberCortex.AI/core/etc/calibration/cam/cam_rs_231122300048.cal")
+    parser.add_argument("-cam", default="C:/data/kalibr/rs_d435_01_result/rs_d435_01-camchain-imucam.yaml")
+    parser.add_argument("-model", default="C:/dev/src/CyberCortex.AI/core/etc/calibration/cam/cam_rs_d435_231522070156.cal")
     args = parser.parse_args()
 
     # CAM model

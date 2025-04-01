@@ -76,12 +76,12 @@ class WaypointsPlannerMainWindow(QMainWindow):
         self.loadViewers(self.qtLandmarksWidget, self.qtLandmarksViewer)
         self.loadViewers(self.qtMapWidget, self.qtMapViewer)
 
-        if os.path.exists(self.waypoints_filename):
-            self.setWindowTitle("CyberCortex.AI.Dojo Waypoints Planner - {}".format(self.waypoints_filename))
-            self.qtLandmarksViewer.loadWaypointsFile()
-            self.qtMapViewer.loadCSVFile()
-        else:
-            print("No waypoints filename was found!")
+        #if os.path.exists(self.waypoints_filename):
+        #    self.setWindowTitle("CyberCortex.AI.Dojo Waypoints Planner - {}".format(self.waypoints_filename))
+        #    self.qtLandmarksViewer.loadWaypointsFile()
+        #    self.qtMapViewer.loadCSVFile()
+        #else:
+        #    print("No waypoints filename was found!")
 
         #if os.path.exists(self.map_filename):
         #    self.qtLandmarksViewer.loadMapFile()
@@ -106,7 +106,6 @@ class WaypointsPlannerMainWindow(QMainWindow):
         map_file = QFileDialog.getOpenFileName(self, "Select MAP file", self.map_filename, "MAP files (*.map)")
         if map_file is not None and map_file[0] != "":
             self.map_filename = map_file[0]
-            self.setWindowTitle("CyberCortex.AI.Dojo Waypoints Planner - {}".format(self.map_filename))
             self.qtLandmarksViewer.loadMapFile()
 
     def on_tab_changed(self):
