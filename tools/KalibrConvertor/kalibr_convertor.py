@@ -66,8 +66,14 @@ def process_camera_by_id(source_dir, target_dir, filter_id, camera_id):
 
         next_percentage = 0.1
         i = 0
+        #prev_ts_cam = 0
         for row in reader:
             ts = row[2]
+            
+            #dt = int(ts) - int(prev_ts_cam)
+            #prev_ts_cam = ts
+            #print("dt_cam = {} ms".format(dt))
+
             filename = os.path.join(cam_data_path, row[3])
             _, file_extension = os.path.splitext(filename)
 
@@ -108,6 +114,7 @@ def process_imu_by_id(source_dir, target_dir, filter_id, imu_id):
 
             next_percentage = 0.1
             i = 0
+            #prev_ts_imu = 0
             for row in reader:
                 imu_data_file = os.path.join(imu_data_path, row[2])
                 with open(imu_data_file, "r") as fimu:
@@ -116,6 +123,11 @@ def process_imu_by_id(source_dir, target_dir, filter_id, imu_id):
                     for imu_row in imu_reader:
                         timestamp = "{}000000".format(imu_row[0])
                         writer.writerow([timestamp] + imu_row[4:7] + imu_row[1:4])
+
+                        #ts = imu_row[0]
+                        #dt = int(ts) - int(prev_ts_imu)
+                        #prev_ts_imu = ts
+                        #print("dt_imu = {} ms".format(dt))
 
                 percentage = i / row_count
                 if percentage > next_percentage:
