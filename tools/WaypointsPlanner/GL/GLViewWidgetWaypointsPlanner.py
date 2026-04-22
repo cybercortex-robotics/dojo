@@ -11,14 +11,18 @@ please contact Prof. Sorin Grigorescu (contact@cybercortex.ai)
 """
 import math
 
-from OpenGL.GLU import gluUnProject, gluProject
-from PyQt5.QtCore import pyqtSignal, Qt
-from OpenGL.GL import *
 import pyqtgraph.opengl as gl
 from numpy.linalg import inv
+from OpenGL.GL import *
+from OpenGL.GLU import gluProject, gluUnProject
+from PyQt5.QtCore import Qt, pyqtSignal
 
-from tools.WaypointsPlanner.GL.GLAxisItemWaypointsPlanner import GLAxisItemWaypointsPlanner
-from tools.WaypointsPlanner.GL.GLCubeItemWaypointsPlanner import GLCubeItemWaypointsPlanner
+from tools.WaypointsPlanner.GL.GLAxisItemWaypointsPlanner import (
+    GLAxisItemWaypointsPlanner,
+)
+from tools.WaypointsPlanner.GL.GLCubeItemWaypointsPlanner import (
+    GLCubeItemWaypointsPlanner,
+)
 from tools.WaypointsPlanner.WaypointsPlanner import *
 
 """
@@ -62,6 +66,7 @@ class GLViewWidgetWaypointsPlanner(gl.GLViewWidget):
         super().addItem(item)
 
     def get_3d_coord(self, x, y, is_press_event=False, is_right_click_pressed=False):
+        self.makeCurrent()
         self.view_port = glGetIntegerv(GL_VIEWPORT)
         self.model_view_matrix = glGetDoublev(GL_MODELVIEW_MATRIX)
         self.projection_matrix = glGetDoublev(GL_PROJECTION_MATRIX)
@@ -128,7 +133,7 @@ class GLViewWidgetWaypointsPlanner(gl.GLViewWidget):
 
             return round(position_x, 2), round(position_y, 2), round(position_z, 2), True
 
-        items = list(filter(lambda item: isinstance(item, GLAxisItemWaypointsPlanner) or
+        items = list(filter(lambda item: (isinstance(item, GLAxisItemWaypointsPlanner) and not item.ignore) or
                                          isinstance(item, GLCubeItemWaypointsPlanner),
                             self.itemsAt(region=(x-5, y-5, 10, 10))))
 
@@ -141,7 +146,7 @@ class GLViewWidgetWaypointsPlanner(gl.GLViewWidget):
             self.last_selected_ids = [self.last_selected_item.landmark_id, self.last_selected_item.waypoint_id]
 
         elif not is_press_event:
-            for item in filter(lambda item: isinstance(item, GLAxisItemWaypointsPlanner) or
+            for item in filter(lambda item: (isinstance(item, GLAxisItemWaypointsPlanner) and not item.ignore) or
                                             isinstance(item, GLCubeItemWaypointsPlanner),
                                self.items):
                 if (self.last_selected_ids != [-1, -1] and

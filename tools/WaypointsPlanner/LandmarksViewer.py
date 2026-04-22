@@ -15,19 +15,40 @@ import os
 import numpy as np
 import pyqtgraph.opengl as gl
 from PyQt5 import uic
-from PyQt5.QtCore import Qt, QItemSelectionModel
-from PyQt5.QtGui import QVector3D, QStandardItemModel, QDoubleValidator, QIntValidator
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSlider, QCheckBox, \
-    QListView, QFileDialog, QMenu, QLabel, QLineEdit
-
-from tools.WaypointsPlanner.GL.GLAxisItemWaypointsPlanner import GLAxisItemWaypointsPlanner
-from tools.WaypointsPlanner.GL.GLCubeItemWaypointsPlanner import GLCubeItemWaypointsPlanner
-from tools.WaypointsPlanner.GL.GLViewWidgetWaypointsPlanner import GLViewWidgetWaypointsPlanner
-from tools.WaypointsPlanner.GL.ListItem import DISTANCE, AXIS_LENGTH, ListItem, LINE_WIDTH, NODE_WIDTH
-from tools.WaypointsPlanner.WaypointsPlanner import Waypoint, Landmark
+from PyQt5.QtCore import QItemSelectionModel, Qt
+from PyQt5.QtGui import QDoubleValidator, QIntValidator, QStandardItemModel, QVector3D
+from PyQt5.QtWidgets import (
+    QCheckBox,
+    QFileDialog,
+    QGridLayout,
+    QLabel,
+    QLineEdit,
+    QListView,
+    QMenu,
+    QPushButton,
+    QSlider,
+    QWidget,
+)
 
 from toolkit.env.CMap import CMap
 from toolkit.env.CMapStorage import CMapStorage
+from tools.WaypointsPlanner.GL.GLAxisItemWaypointsPlanner import (
+    GLAxisItemWaypointsPlanner,
+)
+from tools.WaypointsPlanner.GL.GLCubeItemWaypointsPlanner import (
+    GLCubeItemWaypointsPlanner,
+)
+from tools.WaypointsPlanner.GL.GLViewWidgetWaypointsPlanner import (
+    GLViewWidgetWaypointsPlanner,
+)
+from tools.WaypointsPlanner.GL.ListItem import (
+    AXIS_LENGTH,
+    DISTANCE,
+    LINE_WIDTH,
+    NODE_WIDTH,
+    ListItem,
+)
+from tools.WaypointsPlanner.WaypointsPlanner import Landmark, Waypoint
 
 """
  * main_waypoints_planner_v3.py
@@ -233,7 +254,7 @@ class LandmarksViewer(QWidget):
         self.gl_view.addItem(z_grid)
 
         # Add (0, 0, 0) coordinate axes
-        axis = GLAxisItemWaypointsPlanner()
+        axis = GLAxisItemWaypointsPlanner(ignore=True)
         self.gl_view.addItem(axis)
 
     def clearViewer(self):
@@ -791,13 +812,13 @@ class LandmarksViewer(QWidget):
             int((float(self.qtZLineEdit.text()) - self.original_position[2]) / float(self.qtCoordsStepLineEdit.text())))
 
     def on_rollLineEdit_textChanged(self):
-        self.qtRollSlider.setValue(float(self.qtRollLineEdit.text()) / float(self.qtAngleStepLineEdit.text()))
+        self.qtRollSlider.setValue(round(float(self.qtRollLineEdit.text()) / float(self.qtAngleStepLineEdit.text())))
 
     def on_pitchLineEdit_textChanged(self):
-        self.qtPitchSlider.setValue(float(self.qtPitchLineEdit.text()) / float(self.qtAngleStepLineEdit.text()))
+        self.qtPitchSlider.setValue(round(float(self.qtPitchLineEdit.text()) / float(self.qtAngleStepLineEdit.text())))
 
     def on_yawLineEdit_textChanged(self):
-        self.qtYawSlider.setValue(float(self.qtYawLineEdit.text()) / float(self.qtAngleStepLineEdit.text()))
+        self.qtYawSlider.setValue(round(float(self.qtYawLineEdit.text()) / float(self.qtAngleStepLineEdit.text())))
 
     # Slots Sliders ----------------------------------------------------------------------------------------------------
     def on_xSlider_valueChanged(self, value):

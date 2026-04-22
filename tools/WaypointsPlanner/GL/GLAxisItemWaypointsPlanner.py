@@ -10,9 +10,10 @@ For any commercial applications, details and software licensing,
 please contact Prof. Sorin Grigorescu (contact@cybercortex.ai)
 """
 
-from PyQt5.QtGui import QVector3D
-from OpenGL.GL import *
+import numpy as np
 import pyqtgraph.opengl as gl
+from OpenGL.GL import *
+from PyQt5.QtGui import QVector3D
 
 from tools.WaypointsPlanner.GL.ListItem import AXIS_WIDTH
 
@@ -33,39 +34,38 @@ class GLAxisItemWaypointsPlanner(gl.GLAxisItem):
                  orientation=QVector3D(0, 0, 0),
                  size=None,
                  antialias=True,
-                 glOptions='translucent'):
-        super().__init__(size, antialias, glOptions)
+                 glOptions='translucent',
+                 ignore=False):
         self.orientation = orientation
         self.position = position
         self.name = obj_name
         self.landmark_id = landmark_id
         self.waypoint_id = waypoint_id
+        self.ignore = ignore
 
-    def paint(self):
-        self.setupGLState()
+        super().__init__(size, antialias, glOptions)
 
-        if self.antialias:
-            glEnable(GL_LINE_SMOOTH)
-            glHint(GL_LINE_SMOOTH_HINT, GL_NICEST)
-
-        glLineWidth(AXIS_WIDTH)
-        glTranslated(self.position[0], self.position[1], self.position[2])
-        glRotate(self.orientation[0], 1, 0, 0)
-        glRotate(self.orientation[1], 0, 1, 0)
-        glRotate(self.orientation[2], 0, 0, 1)
-
-        glBegin(GL_LINES)
+    def updateLines(self):
+        if self.lineplot is None:
+            # still initializing
+            return
 
         x, y, z = self.size()
-        glColor4f(1, 0, 0, .6)  # x is red
-        glVertex3f(0, 0, 0)
-        glVertex3f(x, 0, 0)
 
-        glColor4f(0, 1, 0, .6)  # y is green
-        glVertex3f(0, 0, 0)
-        glVertex3f(0, y, 0)
+        pos = np.array([
+            [self.position[0], self.position[1], self.position[2], self.position[0], self.position[1], self.position[2] + z],
+            [self.position[0], self.position[1], self.position[2], self.position[0], self.position[1] + y, self.position[2]],
+            [self.position[0], self.position[1], self.position[2], self.position[0] + x, self.position[1], self.position[2]],
+        ], dtype=np.float32).reshape((-1, 3))
 
-        glColor4f(0, 0, 1, .6)  # z is blue
-        glVertex3f(0, 0, 0)
-        glVertex3f(0, 0, z)
-        glEnd()
+        color = np.array([
+            [0, 0, 1, 0.6],     # z is blue
+            [0, 1, 0, 0.6],     # y is green
+            [1, 0, 0, 0.6],     # x is red
+        ], dtype=np.float32)
+
+        # color both vertices of each line segment
+        color = np.hstack((color, color)).reshape((-1, 4))
+
+        self.lineplot.setData(pos=pos, color=color, width=AXIS_WIDTH)
+        self.update()

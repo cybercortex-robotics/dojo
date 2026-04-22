@@ -10,9 +10,10 @@ For any commercial applications, details and software licensing,
 please contact Prof. Sorin Grigorescu (contact@cybercortex.ai)
 """
 
-from PyQt5.QtGui import QVector3D
-from OpenGL.GL import *
+import numpy as np
 import pyqtgraph.opengl as gl
+from OpenGL.GL import *
+from PyQt5.QtGui import QVector3D
 
 from tools.WaypointsPlanner.GL.ListItem import LINE_WIDTH
 
@@ -27,13 +28,16 @@ from tools.WaypointsPlanner.GL.ListItem import LINE_WIDTH
 class GLCubeItemWaypointsPlanner(gl.GLBoxItem):
     def __init__(self, box_name="Box", landmark_id=0, waypoint_id=-1,
                  position=QVector3D(0, 0, 0), size=None, color=None, glOptions='translucent'):
-        super().__init__(size, color, glOptions)
         self.position = position
         self.name = box_name
         self.landmark_id = landmark_id
         self.waypoint_id = waypoint_id
 
+        super().__init__(size, color, glOptions)
+        self.translate(self.position[0], self.position[1], self.position[2])
+
+        if self.lineplot is not None:
+            self.lineplot.setData(width=LINE_WIDTH)
+
     def paint(self):
-        glLineWidth(LINE_WIDTH)
-        glTranslated(self.position[0], self.position[1], self.position[2])
         super().paint()
