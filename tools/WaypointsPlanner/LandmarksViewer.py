@@ -298,14 +298,43 @@ class LandmarksViewer(QWidget):
 
     def fillListView(self):
         self.model_landmarks.clear()
-        self.selected_item = [-1, -1]
 
         for landmark in self.main_window.WaypointsPlanner.landmarks:
             self.model_landmarks.appendRow([ListItem(self.formatNameComplex(landmark))])
             for idx, waypoint in enumerate(landmark.waypoints):
                 if waypoint.visible:
                     self.model_landmarks.appendRow([ListItem(self.formatNameComplex(landmark, idx, waypoint))])
+
+        self.selectInQtList(self.selected_item, True)
+
+        self.selected_item = [-1, -1]
         self.draw()
+
+    def mapSelectedItemToRow(self, selected_item):
+        row = selected_item[0] + 1
+        for i in range(selected_item[0]):
+            row += len(self.main_window.WaypointsPlanner.landmarks[i].waypoints)
+
+        row += selected_item[1]
+        return row
+
+    def selectInQtList(self, selected_item, block_signals=False):
+        row = self.mapSelectedItemToRow(selected_item)
+        if row >= 0:
+            index = self.model_landmarks.index(row, 0)
+
+            if block_signals:
+                self.landmarks_selection_model.blockSignals(True)
+
+            self.landmarks_selection_model.select(
+                index,
+                QItemSelectionModel.Select | QItemSelectionModel.Rows
+            )
+
+            self.landmarks_selection_model.setCurrentIndex(index, QItemSelectionModel.Current)
+
+            if block_signals:
+                self.landmarks_selection_model.blockSignals(False)
 
     def getSelectedIndexes(self, row):
         current_row = 0
@@ -421,9 +450,6 @@ class LandmarksViewer(QWidget):
 
     def addNewWaypoint(self):
         selected_item = self.selected_item[0]
-        if selected_item == -1:
-            return
-
         if selected_item != -1:
             landmark = self.main_window.WaypointsPlanner.landmarks[selected_item]
             new_waypoint = Waypoint(
@@ -551,15 +577,18 @@ class LandmarksViewer(QWidget):
 
     def on_deleteWaypointButton_clicked(self):
         if self.selected_item != [-1, -1]:
+            if len(self.landmarks_selection_model.selection().indexes()) == 0:
+                return
+
             item = self.landmarks_selection_model.selection().indexes()[0]
             base_row = item.row()
 
             if self.selected_item[1] >= 0:
-                self.main_window.WaypointsPlanner.landmarks[self.selected_item[0]].waypoints[
-                    self.selected_item[1]].visible = False
-                self.model_landmarks.takeRow(base_row)
-
                 print("waypoint {} from Landmark {} was deleted".format(self.selected_item[1], self.selected_item[0]))
+
+                self.main_window.WaypointsPlanner.landmarks[self.selected_item[0]].waypoints.pop(
+                    self.selected_item[1])
+                self.model_landmarks.takeRow(base_row)
             else:
                 # delete waypoints
                 for _ in self.main_window.WaypointsPlanner.landmarks[self.selected_item[0]].waypoints:
@@ -629,7 +658,7 @@ class LandmarksViewer(QWidget):
                 return  # already at the bottom
 
             index = self.landmarks_selection_model.selection().indexes()[0]
-            item = self.model_map.itemFromIndex(index)
+            item = self.model_landmarks.itemFromIndex(index)
             base_row = item.row()
 
             landmarks = self.main_window.WaypointsPlanner.landmarks
