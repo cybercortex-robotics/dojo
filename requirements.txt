@@ -15,7 +15,7 @@ matplotlib
 PyOpenGL==3.1.10
 IPython
 pyquaternion
-#pip3 install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu12.1
+#pip3 install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu118
 torchview
 onnxruntime
 open3d

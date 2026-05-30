@@ -18,11 +18,11 @@ from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
-image_folder = r'C:\data\rgbd\live\datastream_201\samples\0\left'
+image_folder = r'C:\Documents\00 Videos\G1\viz_g1\vehicle'
 fps = 11 # 7
 image_files = [image_folder+'/'+img for img in os.listdir(image_folder) if img.endswith(".png")]
 clip = moviepy.video.io.ImageSequenceClip.ImageSequenceClip(image_files, fps=fps)
-clip.write_videofile('C:/data/vehicle_viz.mp4')
+clip.write_videofile(r'C:\Documents\00 Videos\G1\viz_g1\viz_vehicle.mp4')
 
 
 """
