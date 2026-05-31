@@ -14,9 +14,9 @@ from absl import app, flags
 import os
 import io, libconf
 import numpy as np
-from global_config import cfg as CFG
+from dojo.global_config import cfg as CFG
 
-class ObjectClasses(object):
+class CObjectClasses(object):
     def __init__(self, object_classes_file):
         if object_classes_file is None:
             object_classes_file = CFG.CyC_INFERENCE.OBJECT_CLASSES_PATH
@@ -309,7 +309,7 @@ class ObjectClasses(object):
 
 
 def tu_object_classes(_argv):
-    object_classes = ObjectClasses(CFG.CyC_INFERENCE.OBJECT_CLASSES_PATH)
+    object_classes = CObjectClasses(CFG.CyC_INFERENCE.OBJECT_CLASSES_PATH)
 
     print("Num object classes:", object_classes.num_classes)
     for obj in object_classes.object_classes:
@@ -321,7 +321,7 @@ def get_countable_classes(object_classes_path=None):
         object_classes_path = CFG.CyC_INFERENCE.OBJECT_CLASSES_PATH
 
     countable_classes = list()
-    object_classes = ObjectClasses(object_classes_path)
+    object_classes = CObjectClasses(object_classes_path)
     for idx in range(len(object_classes.countable_objects)):
         if object_classes.countable_objects[idx] is True:
             countable_classes.append(idx)
@@ -337,19 +337,19 @@ def is_countable(index):
 
 
 # def get_name_by_index(index):
-#     object_classes = ObjectClasses(CFG.CyC_INFERENCE.OBJECT_CLASSES_PATH)
+#     object_classes = CObjectClasses(CFG.CyC_INFERENCE.OBJECT_CLASSES_PATH)
 #     if 0 <= index < len(object_classes.object_classes):
 #         return object_classes.object_classes[index][1]
 #     return "background"
 
 
 def get_background_index():
-    object_classes = ObjectClasses(CFG.CyC_INFERENCE.OBJECT_CLASSES_PATH)
+    object_classes = CObjectClasses(CFG.CyC_INFERENCE.OBJECT_CLASSES_PATH)
     return object_classes.background_class
 
 
 if __name__ == '__main__':
-    obj_classes = ObjectClasses(CFG.CyC_INFERENCE.OBJECT_CLASSES_PATH)
+    obj_classes = CObjectClasses(CFG.CyC_INFERENCE.OBJECT_CLASSES_PATH)
 
     for obj in obj_classes.object_classes:
         print(obj[0], obj[1], obj_classes.is_countable(obj[0]))
