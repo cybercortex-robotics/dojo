@@ -12,8 +12,8 @@ from omegaconf import DictConfig, OmegaConf
 from pytorch_lightning import Callback
 from pytorch_lightning.loggers.logger import Logger
 
-from losses import load_loss
-from metrics import load_metrics
+from .losses import load_loss
+from .metrics import load_metrics
 
 log = logging.getLogger(__name__)
 
@@ -138,8 +138,8 @@ def register_custom_resolvers(version_base: str, config_path: str, config_name: 
     # returns the most recently modified .ckpt file from the latest timestamped run dir
     if not OmegaConf.has_resolver("last_ckpt"):
         _root = pyrootutils.find_root(
-            search_from=Path(__file__).parent,
-            indicator=[".git", "pyproject.toml"],
+            search_from=Path(__file__).parent.parent.parent.parent,
+            indicator=[".git"],
         )
 
         def _find_last_checkpoint(runs_dir: str) -> str:
