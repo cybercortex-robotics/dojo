@@ -23,7 +23,7 @@ def add_blockchain_descriptor(path2cyc, core_id, filter_id_images, filter_id_sem
         print("CyberCortex.AI datablock descriptor file already exists")
         return
     with open(os.path.join(path2cyc, "datablock_descriptor.csv"), "w") as blockchain_desc:
-        blockchain_desc.write("vision_core_id,filter_id,name,type,output_data_type,input_sources\n")
+        blockchain_desc.write("core_id,filter_id,name,type,output_data_type,input_sources\n")
         if filter_id_images != -1:
             blockchain_desc.write("{},{},{},{},{},{}\n".format(
                 core_id,

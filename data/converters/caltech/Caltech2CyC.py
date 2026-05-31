@@ -137,7 +137,7 @@ def map_caltech_2_CyC_format(path_to_destination_folder, set_folder, sensors):
 
 
 def generate_datablock_descriptor(SET, SENSORS):
-    vision_core_id = 1
+    core_id = 1
 
     CyC_types_path = CFG.CyC_INFERENCE.TYPES_FILE
     if not os.path.exists(CyC_types_path):
@@ -163,7 +163,7 @@ def generate_datablock_descriptor(SET, SENSORS):
               newline='') as blockchain_descriptor_file:
         blockchain_descriptor_writer = csv.writer(blockchain_descriptor_file, delimiter=',')
         header = list()
-        header.append('vision_core_id')
+        header.append('core_id')
         header.append('filter_id')
         header.append('name')
         header.append('type')
@@ -177,7 +177,7 @@ def generate_datablock_descriptor(SET, SENSORS):
         for idx, sensor in enumerate(SENSORS):
             if 'CAM' == sensor.split("_")[0]:
                 row = list()
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append(sensor)
                 row.append(str(filter_type[SENSORS_FILTER['CAM']]))
@@ -186,7 +186,7 @@ def generate_datablock_descriptor(SET, SENSORS):
                 last_cam_idx = idx
             elif '2D' == sensor.split("_")[0]:
                 row = list()
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append(sensor)
                 row.append(str(filter_type[SENSORS_FILTER['2D']]))

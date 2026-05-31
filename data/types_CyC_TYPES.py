@@ -12,7 +12,7 @@ please contact Prof. Sorin Grigorescu (contact@cybercortex.ai)
 
 import os
 import json
-from global_config import cfg as CFG
+from dojo.global_config import cfg as CFG
 
 # Has to point to the CyC_TYPES.h file in the CyberCortex.AI.inference repository
 CyC_types_header = os.path.join(os.path.dirname(__file__), CFG.CyC_INFERENCE.TYPES_FILE)

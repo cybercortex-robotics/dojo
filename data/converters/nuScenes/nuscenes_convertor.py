@@ -340,7 +340,7 @@ def process_sample(path_to_destination_folder, scene_name,
 
 
 def generate_blockchain_descriptor(list_sensors, scene_name):
-    vision_core_id = 1
+    core_id = 1
 
     CyC_types_path = r"C:\dev\src\CyberCortex.AI\core\include\CyC_TYPES.h"
     if not os.path.exists(CyC_types_path):
@@ -412,7 +412,7 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
         blockchain_descriptor_writer = csv.writer(blockchain_descriptor_file, delimiter=',')
 
         header = []
-        header.append('vision_core_id')
+        header.append('core_id')
         header.append('filter_id')
         header.append('name')
         header.append('type')
@@ -452,7 +452,7 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
 
             if 'VehicleOdometry' in sensor_type:
                 row = list()
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('VehicleOdometry')
                 row.append(str(filter_type[SENSORS_FILTER['VehicleOdometry']]))
@@ -460,7 +460,7 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'IMU' in sensor_type:
                 row = list()
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('IMU')
                 row.append(str(filter_type[SENSORS_FILTER['IMU']]))
@@ -468,20 +468,20 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'CAM_FRONT_LEFT' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('CameraFrontLeft')
                 print(filter_type[SENSORS_FILTER['CAM_FRONT_LEFT']])
                 row.append(str(filter_type[SENSORS_FILTER['CAM_FRONT_LEFT']]))
                 row.append(str(data_type[SENSORS_DATA['CAM_FRONT_LEFT']]))
                 blockchain_descriptor_writer.writerow(column for column in row)
-                objdet_row[('2D_' + 'CAM_FRONT_LEFT')].append(str(vision_core_id))
+                objdet_row[('2D_' + 'CAM_FRONT_LEFT')].append(str(core_id))
                 objdet_row[('2D_' + 'CAM_FRONT_LEFT')].append(str(idx + 14))
                 objdet_row[('2D_' + 'CAM_FRONT_LEFT')].append('ObjectDetector2D_'+str('CAM_FRONT_LEFT'))
                 objdet_row[('2D_' + 'CAM_FRONT_LEFT')].append(str(filter_type[SENSORS_FILTER['2D_CAM_FRONT_LEFT']]))
                 objdet_row[('2D_' + 'CAM_FRONT_LEFT')].append(str(data_type[SENSORS_DATA['2D_CAM_FRONT_LEFT']]))
                 objdet_row[('2D_' + 'CAM_FRONT_LEFT')].append("{1-2;1-13}")
-                objdet_row[('3D_' + 'CAM_FRONT_LEFT')].append(str(vision_core_id))
+                objdet_row[('3D_' + 'CAM_FRONT_LEFT')].append(str(core_id))
                 objdet_row[('3D_' + 'CAM_FRONT_LEFT')].append(str(idx + 20))
                 objdet_row[('3D_' + 'CAM_FRONT_LEFT')].append('ObjectDetector3D_' + str('CAM_FRONT_LEFT'))
                 objdet_row[('3D_' + 'CAM_FRONT_LEFT')].append(str(filter_type[SENSORS_FILTER['3D_CAM_FRONT_LEFT']]))
@@ -489,19 +489,19 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 objdet_row[('3D_' + 'CAM_FRONT_LEFT')].append("{1-2;1-13}")
             elif 'CAM_FRONT_RIGHT' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('CameraFrontRight')
                 row.append(str(filter_type[SENSORS_FILTER['CAM_FRONT_RIGHT']]))
                 row.append(str(data_type[SENSORS_DATA['CAM_FRONT_RIGHT']]))
                 blockchain_descriptor_writer.writerow(column for column in row)
-                objdet_row[('2D_' + 'CAM_FRONT_RIGHT')].append(str(vision_core_id))
+                objdet_row[('2D_' + 'CAM_FRONT_RIGHT')].append(str(core_id))
                 objdet_row[('2D_' + 'CAM_FRONT_RIGHT')].append(str(idx + 14))
                 objdet_row[('2D_' + 'CAM_FRONT_RIGHT')].append('ObjectDetector2D_' + str('CAM_FRONT_RIGHT'))
                 objdet_row[('2D_' + 'CAM_FRONT_RIGHT')].append(str(filter_type[SENSORS_FILTER['2D_CAM_FRONT_RIGHT']]))
                 objdet_row[('2D_' + 'CAM_FRONT_RIGHT')].append(str(data_type[SENSORS_DATA['2D_CAM_FRONT_RIGHT']]))
                 objdet_row[('2D_' + 'CAM_FRONT_RIGHT')].append("{1-3;1-13}")
-                objdet_row[('3D_' + 'CAM_FRONT_RIGHT')].append(str(vision_core_id))
+                objdet_row[('3D_' + 'CAM_FRONT_RIGHT')].append(str(core_id))
                 objdet_row[('3D_' + 'CAM_FRONT_RIGHT')].append(str(idx + 20))
                 objdet_row[('3D_' + 'CAM_FRONT_RIGHT')].append('ObjectDetector3D_' + str('CAM_FRONT_RIGHT'))
                 objdet_row[('3D_' + 'CAM_FRONT_RIGHT')].append(str(filter_type[SENSORS_FILTER['3D_CAM_FRONT_RIGHT']]))
@@ -509,19 +509,19 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 objdet_row[('3D_' + 'CAM_FRONT_RIGHT')].append("{1-3;1-13}")
             elif 'CAM_FRONT' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('CameraFront')
                 row.append(str(filter_type[SENSORS_FILTER['CAM_FRONT']]))
                 row.append(str(data_type[SENSORS_DATA['CAM_FRONT']]))
                 blockchain_descriptor_writer.writerow(column for column in row)
-                objdet_row[('2D_' + 'CAM_FRONT')].append(str(vision_core_id))
+                objdet_row[('2D_' + 'CAM_FRONT')].append(str(core_id))
                 objdet_row[('2D_' + 'CAM_FRONT')].append(str(idx + 14))
                 objdet_row[('2D_' + 'CAM_FRONT')].append('ObjectDetector2D_' + str('CAM_FRONT'))
                 objdet_row[('2D_' + 'CAM_FRONT')].append(str(filter_type[SENSORS_FILTER['2D_CAM_FRONT']]))
                 objdet_row[('2D_' + 'CAM_FRONT')].append(str(data_type[SENSORS_DATA['2D_CAM_FRONT']]))
                 objdet_row[('2D_' + 'CAM_FRONT')].append("{1-1;1-13}")
-                objdet_row[('3D_' + 'CAM_FRONT')].append(str(vision_core_id))
+                objdet_row[('3D_' + 'CAM_FRONT')].append(str(core_id))
                 objdet_row[('3D_' + 'CAM_FRONT')].append(str(idx + 20))
                 objdet_row[('3D_' + 'CAM_FRONT')].append('ObjectDetector3D_' + str('CAM_FRONT'))
                 objdet_row[('3D_' + 'CAM_FRONT')].append(str(filter_type[SENSORS_FILTER['3D_CAM_FRONT']]))
@@ -529,19 +529,19 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 objdet_row[('3D_' + 'CAM_FRONT')].append("{1-1;1-13}")
             elif 'CAM_BACK_LEFT' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('CameraBackLeft')
                 row.append(str(filter_type[SENSORS_FILTER['CAM_BACK_LEFT']]))
                 row.append(str(data_type[SENSORS_DATA['CAM_BACK_LEFT']]))
                 blockchain_descriptor_writer.writerow(column for column in row)
-                objdet_row[('2D_' + 'CAM_BACK_LEFT')].append(str(vision_core_id))
+                objdet_row[('2D_' + 'CAM_BACK_LEFT')].append(str(core_id))
                 objdet_row[('2D_' + 'CAM_BACK_LEFT')].append(str(idx + 14))
                 objdet_row[('2D_' + 'CAM_BACK_LEFT')].append('ObjectDetector2D_' + str('CAM_BACK_LEFT'))
                 objdet_row[('2D_' + 'CAM_BACK_LEFT')].append(str(filter_type[SENSORS_FILTER['2D_CAM_BACK_LEFT']]))
                 objdet_row[('2D_' + 'CAM_BACK_LEFT')].append(str(data_type[SENSORS_DATA['2D_CAM_BACK_LEFT']]))
                 objdet_row[('2D_' + 'CAM_BACK_LEFT')].append("{1-5;1-13}")
-                objdet_row[('3D_' + 'CAM_BACK_LEFT')].append(str(vision_core_id))
+                objdet_row[('3D_' + 'CAM_BACK_LEFT')].append(str(core_id))
                 objdet_row[('3D_' + 'CAM_BACK_LEFT')].append(str(idx + 20))
                 objdet_row[('3D_' + 'CAM_BACK_LEFT')].append('ObjectDetector3D_' + str('CAM_BACK_LEFT'))
                 objdet_row[('3D_' + 'CAM_BACK_LEFT')].append(str(filter_type[SENSORS_FILTER['3D_CAM_BACK_LEFT']]))
@@ -549,19 +549,19 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 objdet_row[('3D_' + 'CAM_BACK_LEFT')].append("{1-5;1-13}")
             elif 'CAM_BACK_RIGHT' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('CameraBackRight')
                 row.append(str(filter_type[SENSORS_FILTER['CAM_BACK_RIGHT']]))
                 row.append(str(data_type[SENSORS_DATA['CAM_BACK_RIGHT']]))
                 blockchain_descriptor_writer.writerow(column for column in row)
-                objdet_row[('2D_' + 'CAM_BACK_RIGHT')].append(str(vision_core_id))
+                objdet_row[('2D_' + 'CAM_BACK_RIGHT')].append(str(core_id))
                 objdet_row[('2D_' + 'CAM_BACK_RIGHT')].append(str(idx + 14))
                 objdet_row[('2D_' + 'CAM_BACK_RIGHT')].append('ObjectDetector2D_' + str('CAM_BACK_RIGHT'))
                 objdet_row[('2D_' + 'CAM_BACK_RIGHT')].append(str(filter_type[SENSORS_FILTER['2D_CAM_BACK_RIGHT']]))
                 objdet_row[('2D_' + 'CAM_BACK_RIGHT')].append(str(data_type[SENSORS_DATA['2D_CAM_BACK_RIGHT']]))
                 objdet_row[('2D_' + 'CAM_BACK_RIGHT')].append("{1-6;1-13}")
-                objdet_row[('3D_' + 'CAM_BACK_RIGHT')].append(str(vision_core_id))
+                objdet_row[('3D_' + 'CAM_BACK_RIGHT')].append(str(core_id))
                 objdet_row[('3D_' + 'CAM_BACK_RIGHT')].append(str(idx + 20))
                 objdet_row[('3D_' + 'CAM_BACK_RIGHT')].append('ObjectDetector3D_' + str('CAM_BACK_RIGHT'))
                 objdet_row[('3D_' + 'CAM_BACK_RIGHT')].append(str(filter_type[SENSORS_FILTER['3D_CAM_BACK_RIGHT']]))
@@ -569,19 +569,19 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 objdet_row[('3D_' + 'CAM_BACK_RIGHT')].append("{1-6;1-13}")
             elif 'CAM_BACK' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('CameraBack')
                 row.append(str(filter_type[SENSORS_FILTER['CAM_BACK']]))
                 row.append(str(data_type[SENSORS_DATA['CAM_BACK']]))
                 blockchain_descriptor_writer.writerow(column for column in row)
-                objdet_row[('2D_' + 'CAM_BACK')].append(str(vision_core_id))
+                objdet_row[('2D_' + 'CAM_BACK')].append(str(core_id))
                 objdet_row[('2D_' + 'CAM_BACK')].append(str(idx + 14))
                 objdet_row[('2D_' + 'CAM_BACK')].append('ObjectDetector2D_' + str('CAM_BACK'))
                 objdet_row[('2D_' + 'CAM_BACK')].append(str(filter_type[SENSORS_FILTER['2D_CAM_BACK']]))
                 objdet_row[('2D_' + 'CAM_BACK')].append(str(data_type[SENSORS_DATA['2D_CAM_BACK']]))
                 objdet_row[('2D_' + 'CAM_BACK')].append("{1-4;1-13}")
-                objdet_row[('3D_' + 'CAM_BACK')].append(str(vision_core_id))
+                objdet_row[('3D_' + 'CAM_BACK')].append(str(core_id))
                 objdet_row[('3D_' + 'CAM_BACK')].append(str(idx + 20))
                 objdet_row[('3D_' + 'CAM_BACK')].append('ObjectDetector3D_' + str('CAM_BACK'))
                 objdet_row[('3D_' + 'CAM_BACK')].append(str(filter_type[SENSORS_FILTER['3D_CAM_BACK']]))
@@ -589,7 +589,7 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 objdet_row[('3D_' + 'CAM_BACK')].append("{1-4;1-13}")
             elif 'LIDAR_TOP' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('LidarTop')
                 row.append(str(filter_type[SENSORS_FILTER['LIDAR_TOP']]))
@@ -597,7 +597,7 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'RADAR_FRONT_LEFT' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('RadarFrontLeft')
                 row.append(str(filter_type[SENSORS_FILTER['RADAR_FRONT_LEFT']]))
@@ -605,7 +605,7 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'RADAR_FRONT_RIGHT' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('RadarFrontRight')
                 row.append(str(filter_type[SENSORS_FILTER['RADAR_FRONT_RIGHT']]))
@@ -613,7 +613,7 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'RADAR_FRONT' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('RadarFront')
                 row.append(str(filter_type[SENSORS_FILTER['RADAR_FRONT']]))
@@ -621,7 +621,7 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'RADAR_BACK_LEFT' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('RadarBackLeft')
                 row.append(str(filter_type[SENSORS_FILTER['RADAR_BACK_LEFT']]))
@@ -629,7 +629,7 @@ def generate_blockchain_descriptor(list_sensors, scene_name):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'RADAR_BACK_RIGHT' in sensor_type:
                 row = []
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('RadarBackRight')
                 row.append(str(filter_type[SENSORS_FILTER['RADAR_BACK_RIGHT']]))

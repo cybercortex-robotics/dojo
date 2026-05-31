@@ -146,7 +146,7 @@ def write_lidar_ply(fn, verts):
 
 
 def generate_datablock_descriptor(list_sensors, drive):
-    vision_core_id = 1
+    core_id = 1
 
     cyc_types_path = CFG.CyC_INFERENCE.TYPES_FILE
     if not os.path.exists(cyc_types_path):
@@ -184,7 +184,7 @@ def generate_datablock_descriptor(list_sensors, drive):
               newline='') as blockchain_descriptor_file:
         blockchain_descriptor_writer = csv.writer(blockchain_descriptor_file, delimiter=',')
         header = list()
-        header.append('vision_core_id')
+        header.append('core_id')
         header.append('filter_id')
         header.append('name')
         header.append('type')
@@ -196,7 +196,7 @@ def generate_datablock_descriptor(list_sensors, drive):
         for idx, sensor in enumerate(list_sensors):
             if 'CAM_STEREO_GRAY' in sensor:
                 row = list()
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('CAM_STEREO_GRAY')
                 row.append(str(filter_type[SENSORS_FILTER['CAM_STEREO_GRAY']]))
@@ -204,7 +204,7 @@ def generate_datablock_descriptor(list_sensors, drive):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'CAM_STEREO_COLOR' in sensor:
                 row = list()
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('CAM_STEREO_COLOR')
                 row.append(str(filter_type[SENSORS_FILTER['CAM_STEREO_COLOR']]))
@@ -212,7 +212,7 @@ def generate_datablock_descriptor(list_sensors, drive):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'LIDAR' in sensor:
                 row = list()
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('LIDAR')
                 row.append(str(filter_type[SENSORS_FILTER['LIDAR']]))
@@ -220,7 +220,7 @@ def generate_datablock_descriptor(list_sensors, drive):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'IMU' in sensor:
                 row = list()
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('IMU')
                 row.append(str(filter_type[SENSORS_FILTER['IMU']]))
@@ -228,7 +228,7 @@ def generate_datablock_descriptor(list_sensors, drive):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'STATE' in sensor:
                 row = list()
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('STATE')
                 row.append(str(filter_type[SENSORS_FILTER['STATE']]))
@@ -236,7 +236,7 @@ def generate_datablock_descriptor(list_sensors, drive):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'LABEL_2D' in sensor:
                 row = list()
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('LABEL_2D')
                 row.append(str(filter_type[SENSORS_FILTER['LABEL_2D']]))
@@ -245,12 +245,12 @@ def generate_datablock_descriptor(list_sensors, drive):
                 blockchain_descriptor_writer.writerow(column for column in row)
             elif 'LABEL_3D' in sensor:
                 row = list()
-                row.append(str(vision_core_id))
+                row.append(str(core_id))
                 row.append(str(idx + 1))
                 row.append('LABEL_3D')
                 row.append(str(filter_type[SENSORS_FILTER['LABEL_3D']]))
                 row.append(str(data_type[SENSORS_DATA['LABEL_3D']]))
-                row.append('{' + str(vision_core_id) + '-' + str(vision_core_id) + ';1-' + str(idx - 1) + '}')
+                row.append('{' + str(core_id) + '-' + str(core_id) + ';1-' + str(idx - 1) + '}')
                 blockchain_descriptor_writer.writerow(column for column in row)
 
 

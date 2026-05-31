@@ -127,7 +127,7 @@ def validate_datastream_folder(db_path, config_json):
     header = lines_blockchain[0].strip().split(",")
 
     header_len = len(header)
-    if "vision_core_id" not in header:
+    if "core_id" not in header:
         return ReturnCodes.BLOCKCHAIN_FILE_HEADER_WRONG
     if "filter_id" not in header:
         return ReturnCodes.BLOCKCHAIN_FILE_HEADER_WRONG

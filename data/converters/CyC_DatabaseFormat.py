@@ -364,7 +364,7 @@ class CyC_DataBase:
     def create_datablock_descriptor(self):
         with open(self.db_path + '/datablock_descriptor.csv', 'w', newline='') as f:
             writer = csv.writer(f)
-            header = ['vision_core_id', 'filter_id', 'name', 'type', 'output_data_type', 'input_sources']
+            header = ['core_id', 'filter_id', 'name', 'type', 'output_data_type', 'input_sources']
             writer.writerow(header)
 
             for key in sorted(self.datastreams, key=lambda dict_key: int(dict_key.split('_')[-1])):

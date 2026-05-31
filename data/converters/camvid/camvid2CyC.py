@@ -34,7 +34,7 @@ segmentation_filter_id = 10
 CyC_core_id = 1
 
 csv_header = 'timestamp_start,timestamp_stop,sampling_time,left_file_path_0,right_file_path_0'
-blockchain_header = 'vision_core_id,filter_id,name,type,output_data_type,input_sources'
+blockchain_header = 'core_id,filter_id,name,type,output_data_type,input_sources'
 
 
 def main():

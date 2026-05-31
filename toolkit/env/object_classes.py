@@ -14,7 +14,7 @@ from absl import app, flags
 import os
 import io, libconf
 import numpy as np
-from global_config import cfg as CFG
+from dojo.global_config import cfg as CFG
 
 class ObjectClasses(object):
     def __init__(self, object_classes_file):

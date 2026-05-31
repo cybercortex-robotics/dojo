@@ -368,7 +368,7 @@ def create_parsers(CyC_db_base_path):
     with open(desc_path, "r") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            core_id = int(row["vision_core_id"])  # may stay
+            core_id = int(row["core_id"])  # may stay
             filter_id = int(row["filter_id"])
             filter_type = int(row["type"])
             filter_name = row["name"]

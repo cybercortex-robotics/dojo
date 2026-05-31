@@ -12,7 +12,7 @@ please contact Prof. Sorin Grigorescu (contact@cybercortex.ai)
 
 import numpy as np
 from absl import app
-from toolkit.sensors import pinhole_camera_sensor_model as pinhole
+from dojo.toolkit.sensors import pinhole_camera_sensor_model as pinhole
 
 def generate_lane(theta_0, theta_1, theta_2, theta_3=0):
     x = np.linspace(0, 60, num=60)

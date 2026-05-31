@@ -27,7 +27,7 @@ def collect_relevant_filters(database_dir):
         reader = csv.reader(f, delimiter=',')
         next(reader)
         for row in reader:
-            # vision_core_id,filter_id,name,type,output_data_type,input_sources
+            # core_id,filter_id,name,type,output_data_type,input_sources
             filter_id = int(row[1])
             output_data_type = int(row[4])
             if output_data_type == CyC_DataType.CyC_IMAGE:
