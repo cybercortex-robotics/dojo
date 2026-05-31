@@ -169,13 +169,22 @@ def register_custom_resolvers(version_base: str, config_path: str, config_name: 
         with initialize_config_dir(version_base=version_base, config_dir=config_path):
             cfg = compose(config_name=config_name, return_hydra_config=True, overrides=[])
         cfg_tmp = cfg.copy()
-        loss = load_loss(cfg_tmp.module.loss)
+
+        # Some modules (e.g. ComputeLoss) cannot be Hydra-instantiated because they
+        # require runtime references (e.g. the detection head). In those cases the
+        # module config omits the `loss` key and instead provides `loss_name`.
+        loss_cfg = OmegaConf.select(cfg_tmp, "module.loss")
+        if loss_cfg is not None:
+            loss_name = load_loss(loss_cfg).__class__.__name__
+        else:
+            loss_name = OmegaConf.select(cfg_tmp, "module.loss_name", default="Loss")
+
         metric, _ = load_metrics(cfg_tmp.module.metrics)
         GlobalHydra.instance().clear()
 
         OmegaConf.register_new_resolver(
             "replace",
-            lambda item: item.replace("__loss__", loss.__class__.__name__).replace(
+            lambda item: item.replace("__loss__", loss_name).replace(
                 "__metric__", metric.__class__.__name__
             ),
         )
