@@ -12,7 +12,7 @@ please contact Prof. Sorin Grigorescu (contact@cybercortex.ai)
 
 from absl import app
 import numpy as np
-from toolkit.env.coordinate_frames_utils import quaternion2R
+from dojo.toolkit.env.coordinate_frames_utils import quaternion2R
 
 class CPose(object):
     def __init__(self, _tx=0., _ty=0., _tz=0., _rx=0., _ry=0., _rz=0., _rw=1., _id=-1):

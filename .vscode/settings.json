@@ -1,0 +1,16 @@
+{
+    "explorer.autoReveal": false,
+    "python.defaultInterpreterPath": "C:/dev/src/CyberCortex.AI/.venv/Scripts/python.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "args": ["-ExecutionPolicy", "Bypass"]
+        }
+    },
+    "terminal.integrated.env.windows": {
+        "VIRTUAL_ENV": "C:\\dev\\src\\CyberCortex.AI\\.venv",
+        "PATH": "C:\\dev\\src\\CyberCortex.AI\\.venv\\Scripts;${env:PATH}"
+    }
+}
