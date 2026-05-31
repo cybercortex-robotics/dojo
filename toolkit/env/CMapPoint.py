@@ -12,7 +12,7 @@ please contact Prof. Sorin Grigorescu (contact@cybercortex.ai)
 
 from absl import app
 import numpy as np
-from dojo.toolkit.os.CCR_TYPES import CcrVoxel
+from ..os.CCR_TYPES import CcrVoxel
 
 class CMapPoint(object):
     def __init__(self):

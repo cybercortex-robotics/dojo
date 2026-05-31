@@ -14,11 +14,11 @@ from absl import app
 import numpy as np
 import msgpack
 import os
-from dojo.toolkit.os.CCR_TYPES import CcrPoint
-from dojo.toolkit.env.CPose import CPose
-from dojo.toolkit.env.CMap import CMap
-from dojo.toolkit.env.CMapPoint import CMapPoint
-from dojo.toolkit.env.CFrame import CFrame
+from ..os.CCR_TYPES import CcrPoint
+from ..env.CPose import CPose
+from ..env.CMap import CMap
+from ..env.CMapPoint import CMapPoint
+from ..env.CFrame import CFrame
 
 class CMapStorage(object):
     def __init__(self):

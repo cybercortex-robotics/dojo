@@ -12,7 +12,7 @@ please contact Prof. Sorin Grigorescu (contact@cybercortex.ai)
 
 from absl import app
 import numpy as np
-from dojo.toolkit.env.CPose import CPose
+from ..env.CPose import CPose
 
 class CFrame(object):
     def __init__(self):
