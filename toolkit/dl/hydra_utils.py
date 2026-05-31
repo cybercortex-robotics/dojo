@@ -12,8 +12,8 @@ from omegaconf import DictConfig, OmegaConf
 from pytorch_lightning import Callback
 from pytorch_lightning.loggers.logger import Logger
 
-from modules.losses.losses import load_loss
-from modules.metrics.metrics import load_metrics
+from losses import load_loss
+from metrics import load_metrics
 
 log = logging.getLogger(__name__)
 
