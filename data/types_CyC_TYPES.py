@@ -25,10 +25,8 @@ if not os.path.exists(CFG.BASE.PATH):
     print("Warning: Base path found in global_config.py not found. Defaulting to ", base_path)
     CFG.BASE.PATH = base_path
 
-# conf_file = os.path.join(CFG.BASE.PATH, "dojo", "annotation_tool", "config.json")
-
-# if not os.path.exists(conf_file):
-conf_file = "config.json"
+# TODO: load from CFG.CyC_INFERENCE.TYPES_FILE
+conf_file = "dojo/config.json"
 
 
 def get_datatypes_as_dict(CyC_types_path, enum_name):
