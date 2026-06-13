@@ -76,8 +76,8 @@ def drawObjectsOnBatches(input_images_batch, output_targets, object_classes, con
                 boxes[:, [0, 2]] *= w
                 boxes[:, [1, 3]] *= h
             else:
-                # Predictions from output_to_target: already pixel xyxy
-                boxes = image_targets[:, 2:6].copy()
+                # Predictions from output_to_target: pixel-space xywh → pixel xyxy
+                boxes = xywh2xyxy(image_targets[:, 2:6].copy())
             classes = image_targets[:, 1].astype('int')
             conf = None if labels else image_targets[:, 6]
 
