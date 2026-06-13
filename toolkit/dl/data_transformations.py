@@ -36,10 +36,18 @@ def transform_imagesbatch(batch, transforms):
         return batch
 
     for i in range(len(transforms)):
-        for transform in transforms[i]:
-            if transform[0] == "RGB2BGR":
-                for idx2 in range(len(batch)):
-                    batch[idx2] = cv2.cvtColor(batch[idx2], cv2.COLOR_RGB2BGR)
+        entry = transforms[i]
+        if hasattr(entry, 'keys'):
+            # Hydra/OmegaConf-style entry, e.g. {'rgb2bgr': {...}}
+            for type_name in entry:
+                if type_name.lower() == "rgb2bgr":
+                    for idx2 in range(len(batch)):
+                        batch[idx2] = cv2.cvtColor(batch[idx2], cv2.COLOR_RGB2BGR)
+        else:
+            for transform in entry:
+                if transform[0] == "RGB2BGR":
+                    for idx2 in range(len(batch)):
+                        batch[idx2] = cv2.cvtColor(batch[idx2], cv2.COLOR_RGB2BGR)
     return batch
 
 def untransform_imagesbatch(batch, transforms):
@@ -50,10 +58,18 @@ def untransform_imagesbatch(batch, transforms):
     :return: transformed batch
     """
     for i in range(len(transforms)):
-        for transform in transforms[i]:
-            if transform[0] == "RGB2BGR":
-                for idx2 in range(len(batch)):
-                    batch[idx2] = cv2.cvtColor(batch[idx2], cv2.COLOR_BGR2RGB)
+        entry = transforms[i]
+        if hasattr(entry, 'keys'):
+            # Hydra/OmegaConf-style entry, e.g. {'rgb2bgr': {...}}
+            for type_name in entry:
+                if type_name.lower() == "rgb2bgr":
+                    for idx2 in range(len(batch)):
+                        batch[idx2] = cv2.cvtColor(batch[idx2], cv2.COLOR_BGR2RGB)
+        else:
+            for transform in entry:
+                if transform[0] == "RGB2BGR":
+                    for idx2 in range(len(batch)):
+                        batch[idx2] = cv2.cvtColor(batch[idx2], cv2.COLOR_BGR2RGB)
     return batch
 
 def transform_tensorbatch(batch, transforms):
@@ -65,13 +81,22 @@ def transform_tensorbatch(batch, transforms):
     """
     if transforms is None:
         return batch
-
+    
     for i in range(len(transforms)):
-        for transform in transforms[i]:
-            if transform[0] == "Normalize":
-                mean = transform[1]
-                std = transform[2]
-                batch = torchvision.transforms.Normalize(mean=mean, std=std)(batch)
+        entry = transforms[i]
+        if hasattr(entry, 'keys'):
+            # Hydra/OmegaConf-style entry, e.g. {'normalize': {'mean': [...], 'std': [...]}}
+            for type_name, params in entry.items():
+                if type_name.lower() == "normalize":
+                    mean = params['mean']
+                    std = params['std']
+                    batch = torchvision.transforms.Normalize(mean=mean, std=std)(batch)
+        else:
+            for transform in entry:
+                if transform[0] == "Normalize":
+                    mean = transform[1]
+                    std = transform[2]
+                    batch = torchvision.transforms.Normalize(mean=mean, std=std)(batch)
     return batch
 
 def untransform_tensorbatch(batch, transforms):
@@ -82,13 +107,26 @@ def untransform_tensorbatch(batch, transforms):
     :return: transformed batch
     """
     for i in range(len(transforms)):
-        for transform in transforms[i]:
-            if transform[0] == "Normalize":
-                mean = np.asarray(transform[1])
-                std = np.asarray(transform[2])
-                invTrans = torchvision.transforms.Compose([
-                    torchvision.transforms.Normalize(mean=np.full(len(mean), 0.), std=1./std),
-                    torchvision.transforms.Normalize(mean=-mean, std=np.full(len(std), 1.)),
-                ])
-                batch = invTrans(batch)
+        entry = transforms[i]
+        if hasattr(entry, 'keys'):
+            # Hydra/OmegaConf-style entry, e.g. {'normalize': {'mean': [...], 'std': [...]}}
+            for type_name, params in entry.items():
+                if type_name.lower() == "normalize":
+                    mean = np.asarray(params['mean'])
+                    std = np.asarray(params['std'])
+                    invTrans = torchvision.transforms.Compose([
+                        torchvision.transforms.Normalize(mean=np.full(len(mean), 0.), std=1./std),
+                        torchvision.transforms.Normalize(mean=-mean, std=np.full(len(std), 1.)),
+                    ])
+                    batch = invTrans(batch)
+        else:
+            for transform in entry:
+                if transform[0] == "Normalize":
+                    mean = np.asarray(transform[1])
+                    std = np.asarray(transform[2])
+                    invTrans = torchvision.transforms.Compose([
+                        torchvision.transforms.Normalize(mean=np.full(len(mean), 0.), std=1./std),
+                        torchvision.transforms.Normalize(mean=-mean, std=np.full(len(std), 1.)),
+                    ])
+                    batch = invTrans(batch)
     return batch

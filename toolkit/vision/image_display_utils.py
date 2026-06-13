@@ -37,7 +37,7 @@ def drawObjectsOnBatches(input_images_batch, output_targets, object_classes, con
     if isinstance(output_targets, torch.Tensor):
         output_targets = output_targets.cpu().numpy()
     if isinstance(input_images_batch, list):
-        input_images_batch = np.asarray(input_images_batch).astype(np.float)
+        input_images_batch = np.asarray(input_images_batch).astype(np.float32)
     if isinstance(output_targets, list):
         output_targets = np.asarray(output_targets)
 
@@ -45,9 +45,16 @@ def drawObjectsOnBatches(input_images_batch, output_targets, object_classes, con
     if input_data_transforms is not None:
         input_images_batch = untransform_imagesbatch(input_images_batch, input_data_transforms)
 
-    # Scaling
-    w = input_images_batch.shape[2]
+    # Convert NCHW to NHWC and ensure contiguous memory layout
+    input_images_batch = np.ascontiguousarray(nchw_2_nhwc(input_images_batch))
+
+    # Un-normalize to 0-255 range
+    if np.max(input_images_batch) <= 1.0:
+        input_images_batch = (input_images_batch * 255.0).astype(np.float32)
+
+    # Scaling — shape is now (B, H, W, C)
     h = input_images_batch.shape[1]
+    w = input_images_batch.shape[2]
     scale = 1
     if (w < 640 or h < 480) and len(output_targets) > 0:
         scale *= 3
@@ -57,22 +64,25 @@ def drawObjectsOnBatches(input_images_batch, output_targets, object_classes, con
     colormap = object_classes.colormap()
     batch_plotted = list()
     for i in range(len(input_images_batch)):
-        img = input_images_batch[i]
+        img = input_images_batch[i].copy()
         img = cv2.resize(img, (w * scale, h * scale))
 
         if len(output_targets) > 0:
             image_targets = output_targets[output_targets[:, 0] == i]
-            boxes = xywh2xyxy(image_targets[:, 2:6])
-            classes = image_targets[:, 1].astype('int')
             labels = image_targets.shape[1] == 6  # labels if no conf column
-            conf = None if labels else image_targets[:, 6]  # check for confidence presence (label vs pred)
-            tracking_ids = -1 * torch.ones(classes.shape)  # image_targets[:, 7]
+            if labels:
+                # Ground-truth: normalized xywh → pixel xyxy
+                boxes = xywh2xyxy(image_targets[:, 2:6].copy())
+                boxes[:, [0, 2]] *= w
+                boxes[:, [1, 3]] *= h
+            else:
+                # Predictions from output_to_target: already pixel xyxy
+                boxes = image_targets[:, 2:6].copy()
+            classes = image_targets[:, 1].astype('int')
+            conf = None if labels else image_targets[:, 6]
 
             for j in range(len(boxes)):
-                if tracking_ids[j] >= 0:
-                    label = '%s %d' % (object_classes.get_name_by_index(int(classes[j])), tracking_ids[j])
-                else:
-                    label = '%s' % (object_classes.get_name_by_index(int(classes[j])))
+                label = '%s' % (object_classes.get_name_by_index(int(classes[j])))
                 info_conf = '%.2f' % (conf[j]) if conf is not None else ''
 
                 box = boxes[j]
@@ -83,38 +93,41 @@ def drawObjectsOnBatches(input_images_batch, output_targets, object_classes, con
                 sub_img = np.asarray(img[c1[1]:c2[1], c1[0]:c2[0]]).astype(float)
                 colored_rect = np.full(sub_img.shape, color, dtype=float)
                 res = cv2.addWeighted(sub_img, 0.8, colored_rect, 0.5, 0.2)
-                img[c1[1]:c2[1], c1[0]:c2[0]] = res  # Putting the image back to its position
+                img[c1[1]:c2[1], c1[0]:c2[0]] = res
 
                 cv2.rectangle(img, (c1[0] - tl + 1, c1[1] - tf * 18), (c2[0] + tl - 1, c1[1]), color, thickness=-1, lineType=cv2.LINE_AA)
                 cv2.putText(img, label, (c1[0], c1[1] - 2), 1, tl * 0.8, (255, 255, 255), thickness=tf, lineType=cv2.LINE_AA)
                 cv2.putText(img, info_conf, (c1[0], c2[1] - 2), 1, tl * 0.8, (255, 255, 255), thickness=tf, lineType=cv2.LINE_AA)
 
+        if scale > 1:
             img = cv2.resize(img, (w, h))
 
         batch_plotted.append(img)
-    return np.asarray(batch_plotted)
+    return np.clip(np.asarray(batch_plotted), 0, 255).astype(np.uint8)
 
 
 def drawSemanticSegmentation(img, segmentation):
     """ Draw semantic segmentation image """
+    img = np.asarray(img, dtype=np.float32)
+    segmentation = np.asarray(segmentation, dtype=np.float32)
+
     # Transpose channels
     if (img.shape[0] <= 3 or img.shape[1] <= 3) and img.shape[2] > 3:
         img = img.transpose(1, 2, 0)
     if (segmentation.shape[0] <= 3 or segmentation.shape[1] <= 3) and segmentation.shape[2] > 3:
         segmentation = segmentation.transpose(1, 2, 0)
-    # segmentation = segmentation * 255
 
-    # img = np.array(img, dtype=np.float32)
     if np.max(img) > 2:
-        img /= 255.
+        img = img / 255.
 
     if np.max(segmentation) > 2:
-        segmentation /= 255.
+        segmentation = segmentation / 255.
 
     if img.shape != segmentation.shape:
         img = cv2.resize(img, (segmentation.shape[1], segmentation.shape[0]), interpolation=cv2.INTER_NEAREST)
 
-    return cv2.addWeighted(np.asarray(img).astype(np.float32), 0.9, np.asarray(segmentation).astype(np.float32), 0.4, 0.0) * 255.
+    blended = cv2.addWeighted(img, 0.9, segmentation, 0.4, 0.0) * 255.
+    return np.clip(blended, 0, 255).astype(np.uint8)
 
 
 def drawSemanticSegmentationOnBatches(input_images_batch, output_tensor):

@@ -61,6 +61,9 @@ def imagebatch_2_tensor(batch, transforms, img_input_shape=None):
     # Apply transformation on the raw batch of input images
     batch = transform_imagesbatch(batch, transforms)
 
+    # for i, im in enumerate(batch):
+    #     print(f"Image {i} first pixel row: {im[0]}")
+
     if img_input_shape:
         hw_shape = img_input_shape[1:3]  # Get the HW from the input shape
         wh_shape = hw_shape[::-1]  # Convert HW representation to WH for resizing
@@ -75,6 +78,9 @@ def imagebatch_2_tensor(batch, transforms, img_input_shape=None):
     if np.max(img_numpy) > 1.:
         img_numpy /= 255.
 
+    # for i, im in enumerate(img_numpy):
+    #     print(f"Image {i} first pixel row: {im[0][:, 0]}")
+
     # Transpose channels to NCHW representation
     img_numpy = nhwc_2_nchw(img_numpy)
 
@@ -83,6 +89,8 @@ def imagebatch_2_tensor(batch, transforms, img_input_shape=None):
 
     # Apply transformation on the torch tensor batch
     batch_tensor = transform_tensorbatch(batch_tensor, transforms)
+
+    # print(f"Image 0 first pixel row (batch_tensor): {batch_tensor[0, 0, 0, :]}")
 
     return batch_tensor
 
